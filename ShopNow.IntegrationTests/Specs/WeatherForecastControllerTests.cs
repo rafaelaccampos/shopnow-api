@@ -10,7 +10,7 @@ namespace ShopNow.IntegrationTests.Specs
         {
             var response = await _httpClient.GetFromJsonAsync<WeatherForecast[]>("weatherForecast");
 
-            Assert.Equals(5, response!.Length);
+            Assert.AreEqual(5, response!.Length);
         }
     }
 }

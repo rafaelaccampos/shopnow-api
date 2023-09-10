@@ -1,6 +1,6 @@
 ﻿namespace ShopNow.IntegrationTests.Setup
 {
-    public class ApiBase : DatabaseBase
+    public class ApiBase 
     {
         protected HttpClient _httpClient;
 
