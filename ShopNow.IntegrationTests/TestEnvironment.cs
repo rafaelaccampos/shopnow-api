@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ShopNow.Infra.Data;
+using ShopNow.IntegrationTests.Setup;
 
 namespace ShopNow.IntegrationTests
 {
@@ -19,6 +20,9 @@ namespace ShopNow.IntegrationTests
                 var configuration = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json")
                 .Build();
+
+                var databaseCreator = new DatabaseCreator();
+                databaseCreator.CreateDatabase(configuration.GetConnectionString("Shops"));
 
                 builder.UseConfiguration(configuration);
             });

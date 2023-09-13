@@ -8,12 +8,16 @@ namespace ShopNow.IntegrationTests.Setup
         {
             var connectionBuilder = new SqlConnectionStringBuilder(connectionString);
             var database = connectionBuilder.InitialCatalog;
-            connectionBuilder.InitialCatalog = "master";
 
-            var connection = new SqlConnectionStringBuilder(connectionBuilder.ConnectionString) { InitialCatalog = "master" };
+            var connectionStringCompleted = new SqlConnectionStringBuilder(connectionBuilder.ConnectionString) { InitialCatalog = "master" }.ConnectionString;
 
-            connection.Execute($@"IF NOT EXISTS (SELECT name FROM master.dbo.sysdatabases WHERE name = N'{database}')
-                              CREATE DATABASE [{database}]");
+            using var connection = new SqlConnection(connectionStringCompleted);
+            connection.Open();
+
+            using var command = connection.CreateCommand();
+            command.CommandText = $@"IF NOT EXISTS (SELECT name FROM master.dbo.sysdatabases WHERE name = N'{database}')
+                              CREATE DATABASE [{database}]";
+            command.ExecuteScalar();
         }
     }
 }
