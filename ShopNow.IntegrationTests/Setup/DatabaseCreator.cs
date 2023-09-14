@@ -2,9 +2,9 @@
 
 namespace ShopNow.IntegrationTests.Setup
 {
-    public class DatabaseCreator
+    public static class DatabaseCreator
     {
-        public void CreateDatabase(string connectionString)
+        public static void CreateDatabase(string connectionString)
         {
             var connectionBuilder = new SqlConnectionStringBuilder(connectionString);
             var database = connectionBuilder.InitialCatalog;

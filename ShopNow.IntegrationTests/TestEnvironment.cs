@@ -21,8 +21,7 @@ namespace ShopNow.IntegrationTests
                 .AddJsonFile("appsettings.json")
                 .Build();
 
-                var databaseCreator = new DatabaseCreator();
-                databaseCreator.CreateDatabase(configuration.GetConnectionString("Shops"));
+                DatabaseCreator.CreateDatabase(configuration.GetConnectionString("Shops"));
 
                 builder.UseConfiguration(configuration);
             });
