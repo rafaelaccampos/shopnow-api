@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using ShopNow.Infra.Data;
 using ShopNow.IntegrationTests.Setup;
 
 namespace ShopNow.IntegrationTests
