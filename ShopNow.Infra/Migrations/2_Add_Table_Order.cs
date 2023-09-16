@@ -13,7 +13,8 @@ namespace ShopNow.Infra.Migrations
                 .WithColumn("cpf").AsString(11).NotNullable()
                 .WithColumn("issue_date").AsDateTime().NotNullable()
                 .WithColumn("freight").AsDecimal(18, 2).NotNullable()
-                .WithColumn("sequence").AsInt32().NotNullable();
+                .WithColumn("sequence").AsInt32().NotNullable()
+                .WithColumn("coupon_code").AsString(50).Nullable();
         }
 
         public override void Down()

@@ -15,8 +15,7 @@ namespace ShopNow.Infra.Migrations
                 .WithColumn("width").AsDecimal(18, 2).NotNullable()
                 .WithColumn("height").AsDecimal(18, 2).NotNullable()
                 .WithColumn("length").AsDecimal(18, 2).NotNullable()
-                .WithColumn("weight").AsDecimal(18, 2).NotNullable()
-                .WithColumn("count").AsInt32().NotNullable();
+                .WithColumn("weight").AsDecimal(18, 2).NotNullable();
         }
 
         public override void Down()
