@@ -1,6 +1,8 @@
 using FluentMigrator.Runner;
 using Microsoft.EntityFrameworkCore;
+using ShopNow.Domain.Repositories;
 using ShopNow.Infra.Data;
+using ShopNow.Infra.Data.Repositories.Database;
 using ShopNow.Infra.Migrations;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,6 +17,8 @@ builder.Services.AddFluentMigratorCore()
     rb.AddSqlServer()
     .WithGlobalConnectionString(builder.Configuration.GetConnectionString("Shops"))
     .ScanIn(typeof(Migrations).Assembly).For.Migrations());
+
+builder.Services.AddScoped<IItemRepository, ItemRepository>();
 
 var app = builder.Build();
 

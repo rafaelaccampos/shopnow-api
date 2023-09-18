@@ -2,7 +2,7 @@
 
 namespace ShopNow.Infra.Migrations
 {
-    [Migration(2)]
+    [Migration(3)]
     public class AddTableOrder : Migration
     {
         public override void Up()
@@ -15,10 +15,15 @@ namespace ShopNow.Infra.Migrations
                 .WithColumn("freight").AsDecimal(18, 2).NotNullable()
                 .WithColumn("sequence").AsInt32().NotNullable()
                 .WithColumn("coupon_code").AsString(50).Nullable();
+
+            Create.ForeignKey("FK_Order_Coupon")
+                .FromTable("tb_order").ForeignColumn("coupon_code")
+                .ToTable("tb_coupon").PrimaryColumn("code");
         }
 
         public override void Down()
         {
+            Delete.ForeignKey("FK_Order_Coupon");
             Delete.Table("tb_order");
         }
     }

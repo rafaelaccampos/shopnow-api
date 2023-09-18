@@ -3,7 +3,6 @@
     public class Item
     {
         public Item(
-            int id,
             string description,
             string category,
             decimal price,
@@ -12,7 +11,6 @@
             decimal length = 0,
             decimal weight = 0)
         {
-            Id = id;
             Description = description;
             Category = category;
             Price = price;
@@ -30,7 +28,6 @@
         public decimal Height { get; private set; }
         public decimal Length { get; private set; }
         public decimal Weight { get; private set; }
-        public IList<OrderItem> OrderItems { get; private set; }
 
         public decimal GetVolume()
         {

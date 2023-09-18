@@ -4,24 +4,35 @@
     {
         private IList<OrderItem> _orderItems = new List<OrderItem>();
 
+        private Order()
+        {
+            
+        }
+
         public Order(string rawCpf, DateTime issueDate = new DateTime(), int sequence = 1)
         {
             Code = new OrderCode(sequence, issueDate).GenerateCode();
             Cpf = new Cpf();
             IssueDate = issueDate;
             Freight = 0;
+            Sequence = sequence;
 
             if (!Cpf.Validate(rawCpf))
             {
                 throw new InvalidOperationException("Cpf is invalid!");
             }
+            CpfNumber = rawCpf;
         }
 
+        public int Id { get; set; }
         public string Code { get; private set; }
         public Cpf Cpf { get; private set; }
+        public string CpfNumber { get; private set; }
         public Coupon Coupon { get; private set; }
+        public string CouponId { get; set; }
         public DateTime IssueDate { get; private set; }
         public decimal Freight { get; private set; }
+        public int Sequence { get; set; }
 
         public void AddItem(Item item, int count)
         {

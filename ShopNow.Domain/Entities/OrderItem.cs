@@ -11,6 +11,7 @@
 
         public int Id { get; private set; }
         public int IdItem { get; private set; }
+        public Item Item { get; set; }
         public decimal Price { get; private set; }
         public int Count { get; private set; }
 

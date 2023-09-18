@@ -1,7 +1,7 @@
 ﻿using ShopNow.IntegrationTests.Setup;
 using System.Net.Http.Json;
 
-namespace ShopNow.IntegrationTests.Specs
+namespace ShopNow.IntegrationTests.Specs.Controllers
 {
     public class WeatherForecastControllerTests : ApiBase
     {

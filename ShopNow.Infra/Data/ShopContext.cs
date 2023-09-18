@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using ShopNow.Domain.Entities;
 
 namespace ShopNow.Infra.Data
 {
@@ -10,9 +11,13 @@ namespace ShopNow.Infra.Data
             
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        protected override void OnModelCreating(ModelBuilder builder)
         {
-            base.OnConfiguring(optionsBuilder);
+            builder.ApplyConfigurationsFromAssembly(typeof(ShopContext).Assembly);
         }
+
+        public DbSet<Item> Items { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<Coupon> Coupons { get; set; }
     }
 }
