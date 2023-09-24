@@ -1,5 +1,10 @@
-﻿using ShopNow.Domain.Entities;
+﻿using FluentAssertions;
+using ShopNow.Domain.Entities;
+using ShopNow.Domain.Repositories;
+using ShopNow.Dtos;
+using ShopNow.Infra.Data.Repositories.Memory;
 using ShopNow.IntegrationTests.Setup;
+using ShopNow.UseCases;
 
 namespace ShopNow.IntegrationTests.Specs.Repositories
 {
@@ -17,6 +22,37 @@ namespace ShopNow.IntegrationTests.Specs.Repositories
 
             _context.Items.AddRange(items);
             _context.SaveChanges();
+
+            var placeOrderInput = new PlaceOrderInput
+            {
+                Cpf = "18731465072",
+                OrderItems = new List<OrderItemInput>
+                {
+                    new OrderItemInput()
+                    {
+                        Id = 1,
+                        Count = 1,
+                    },
+                    new OrderItemInput()
+                    {
+                        Id = 2,
+                        Count =  2,
+                    },
+                    new OrderItemInput()
+                    {
+                        Id = 3,
+                        Count = 3,
+                    }
+                }
+            };
+
+            var itemRepository = GetService<IItemRepository>();
+            var placeOrder = new PlaceOrder(itemRepository, new OrderRepositoryMemory());
+            
+            var simulateFreight = new SimulateFreight(placeOrder);
+            var output = await simulateFreight.Execute(placeOrderInput);
+
+            output.Should().Be(260);
         }
     }
 }

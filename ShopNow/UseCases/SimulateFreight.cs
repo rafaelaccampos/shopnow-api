@@ -10,5 +10,12 @@ namespace ShopNow.UseCases
         {
             _placeOrder = placeOrder;
         }
+
+        public async Task<decimal> Execute(PlaceOrderInput placeOrderInput)
+        {
+            var order = await _placeOrder.Execute(placeOrderInput);
+
+            return order.Freight;
+        }
     }
 }
