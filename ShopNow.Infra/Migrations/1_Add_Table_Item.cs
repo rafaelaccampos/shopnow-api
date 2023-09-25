@@ -8,7 +8,7 @@ namespace ShopNow.Infra.Migrations
         public override void Up()
         {
             Create.Table("tb_item")
-                .WithColumn("cd_item").AsInt32().PrimaryKey().Identity()
+                .WithColumn("cd_item").AsInt32().PrimaryKey()
                 .WithColumn("description").AsString(50).NotNullable()
                 .WithColumn("category").AsString(50).NotNullable()
                 .WithColumn("price").AsDecimal(18, 2).NotNullable()

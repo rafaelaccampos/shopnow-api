@@ -10,7 +10,7 @@ namespace ShopNow.IntegrationTests.Specs.Repositories
         [Test]
         public async Task ShouldBeAbleToFindItemById()
         {
-            var item = new Item("Guitarra", "Eletrônicos", 1000);
+            var item = new Item(1, "Guitarra", "Eletrônicos", 1000);
 
             var itemRepository = GetService<IItemRepository>();
 

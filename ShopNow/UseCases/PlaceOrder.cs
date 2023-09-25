@@ -21,7 +21,7 @@ namespace ShopNow.UseCases
 
             foreach (var orderItem in placeOrderInput.OrderItems)
             {
-                var item = await _itemRepository.FindByIdAsync(orderItem.Id);
+                var item = await _itemRepository.FindByIdAsync(orderItem.IdItem);
 
                 order.AddItem(item!, orderItem.Count);
             }

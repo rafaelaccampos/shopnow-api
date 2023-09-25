@@ -3,6 +3,7 @@
     public class Item
     {
         public Item(
+            int id,
             string description,
             string category,
             decimal price,
@@ -11,6 +12,7 @@
             decimal length = 0,
             decimal weight = 0)
         {
+            Id = id;
             Description = description;
             Category = category;
             Price = price;
@@ -20,7 +22,7 @@
             Weight = weight;
         }
 
-        public int Id { get; set; }
+        public int Id { get; private set; }
         public string Description { get; private set; }
         public string Category { get; private set; }
         public decimal Price { get; private set; }

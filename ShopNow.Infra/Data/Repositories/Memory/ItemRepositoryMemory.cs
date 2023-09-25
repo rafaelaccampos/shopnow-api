@@ -11,9 +11,9 @@ namespace ShopNow.Infra.Data.Repositories.Memory
         {
             _items = new List<Item>
             {
-                new Item("Guitarra", "Eletrônicos", 1000, 100, 30, 10, 3),
-                new Item("Amplificador", "Eletrônicos", 5000, 100, 50, 50, 20),
-                new Item("Cabo", "Eletrônicos", 30, 10, 10, 10, 0.9M)
+                new Item(1, "Guitarra", "Eletrônicos", 1000, 100, 30, 10, 3),
+                new Item(2, "Amplificador", "Eletrônicos", 5000, 100, 50, 50, 20),
+                new Item(3, "Cabo", "Eletrônicos", 30, 10, 10, 10, 0.9M)
             };
         }
 
