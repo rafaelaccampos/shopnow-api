@@ -15,9 +15,9 @@ namespace ShopNow.IntegrationTests.Specs.Repositories
         {
             var items = new List<Item>
             {
-                new Item(1, "Guitarra", "Eletrônicos", 1000, 100, 30, 10, 3),
-                new Item(2, "Amplificador", "Eletrônicos", 5000, 100, 50, 50, 20),
-                new Item(3, "Cabo", "Eletrônicos", 30, 10, 10, 10, 0.9M),
+                new Item(1, "Guitarra", "Eletrônicos", 1000, 100, 50, 15, 3),
+                new Item(2, "Amplificador", "Eletrônicos", 5000, 50, 50, 50, 22),
+                new Item(3, "Cabo", "Eletrônicos", 30, 10, 10, 10, 1),
             };
 
             _context.Items.AddRange(items);
@@ -36,7 +36,7 @@ namespace ShopNow.IntegrationTests.Specs.Repositories
                     new OrderItemInput()
                     {
                         IdItem = 2,
-                        Count =  2,
+                        Count =  1,
                     },
                     new OrderItemInput()
                     {
@@ -52,7 +52,7 @@ namespace ShopNow.IntegrationTests.Specs.Repositories
             var simulateFreight = new SimulateFreight(placeOrder);
             var output = await simulateFreight.Execute(placeOrderInput);
 
-            output.Should().Be(260);
+            output.Should().Be(280);
         }
     }
 }
