@@ -3,15 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33829.357
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShopNow", "ShopNow\ShopNow.csproj", "{94A70AE8-48FC-41F4-9434-A9D1F2F02797}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShopNow", "ShopNow\ShopNow.csproj", "{94A70AE8-48FC-41F4-9434-A9D1F2F02797}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShopNow.Domain", "ShopNow.Domain\ShopNow.Domain.csproj", "{1B67E9D4-FC5B-4D04-BA6B-0318033CE34B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShopNow.Domain", "ShopNow.Domain\ShopNow.Domain.csproj", "{1B67E9D4-FC5B-4D04-BA6B-0318033CE34B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShopNow.Infra", "ShopNow.Infra\ShopNow.Infra.csproj", "{643A0FEF-441E-45D7-ACC6-726D08C8617E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShopNow.Infra", "ShopNow.Infra\ShopNow.Infra.csproj", "{643A0FEF-441E-45D7-ACC6-726D08C8617E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShopNow.IntegrationTests", "ShopNow.IntegrationTests\ShopNow.IntegrationTests.csproj", "{FB7996C1-A833-4BE7-87F9-00B5A9E85439}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShopNow.IntegrationTests", "ShopNow.IntegrationTests\ShopNow.IntegrationTests.csproj", "{FB7996C1-A833-4BE7-87F9-00B5A9E85439}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShopNow.UnitTests", "ShopNow.UnitTests\ShopNow.UnitTests.csproj", "{3CDDD7B6-0DC4-4417-8888-46818DB2CAED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShopNow.UnitTests", "ShopNow.UnitTests\ShopNow.UnitTests.csproj", "{3CDDD7B6-0DC4-4417-8888-46818DB2CAED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShopNow.Tests.Shared", "ShopNow.Tests.Shared\ShopNow.Tests.Shared.csproj", "{D80211B3-1396-401F-98F4-87269328790D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{3CDDD7B6-0DC4-4417-8888-46818DB2CAED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3CDDD7B6-0DC4-4417-8888-46818DB2CAED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3CDDD7B6-0DC4-4417-8888-46818DB2CAED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D80211B3-1396-401F-98F4-87269328790D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D80211B3-1396-401F-98F4-87269328790D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D80211B3-1396-401F-98F4-87269328790D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D80211B3-1396-401F-98F4-87269328790D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
