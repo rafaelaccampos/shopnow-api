@@ -5,6 +5,7 @@ namespace ShopNow.UnitTests.Specs.Entities
 {
     public class CpfTests
     {
+
         [TestCase("")]
         [TestCase(null)]
         public void ShouldBeAbleToValidateAnInvalidCpfWith(string invalidCpf)
