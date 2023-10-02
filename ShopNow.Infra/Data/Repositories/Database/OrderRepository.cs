@@ -1,4 +1,5 @@
-﻿using ShopNow.Domain.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using ShopNow.Domain.Entities;
 using ShopNow.Domain.Repositories;
 
 namespace ShopNow.Infra.Data.Repositories.Database
@@ -14,7 +15,9 @@ namespace ShopNow.Infra.Data.Repositories.Database
 
         public async Task Save(Order order)
         {
-            throw new NotImplementedException();
+            await _shopContext.Orders.AddAsync(order);
+            _shopContext.Entry(order.OrderItems).State = EntityState.Detached;
+            await _shopContext.SaveChangesAsync();
         }
     }
 }

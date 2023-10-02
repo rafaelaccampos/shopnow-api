@@ -3,7 +3,6 @@ using FluentAssertions.Execution;
 using ShopNow.Domain.Entities;
 using ShopNow.Domain.Repositories;
 using ShopNow.Dtos;
-using ShopNow.Infra.Data.Repositories.Memory;
 using ShopNow.IntegrationTests.Setup;
 using ShopNow.UseCases;
 
@@ -49,7 +48,8 @@ namespace ShopNow.IntegrationTests.Specs.Repositories
             _context.SaveChanges();
 
             var itemRepository = GetService<IItemRepository>();
-            var placeOrder = new PlaceOrder(itemRepository, new OrderRepositoryMemory());
+            var orderRepository = GetService<IOrderRepository>();
+            var placeOrder = new PlaceOrder(itemRepository, orderRepository);
             var output = await placeOrder.Execute(placeOrderInput);
 
             using (new AssertionScope())

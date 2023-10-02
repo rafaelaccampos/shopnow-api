@@ -2,8 +2,6 @@
 {
     public class Order
     {
-        private IList<OrderItem> _orderItems = new List<OrderItem>();
-
         private Order()
         {
             
@@ -34,10 +32,12 @@
         public decimal Freight { get; private set; }
         public int Sequence { get; set; }
 
+        public IList<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
+
         public void AddItem(Item item, int count)
         {
             Freight += item.GetFreight() * count;
-            _orderItems.Add(new OrderItem(item.Id, item.Price, count));
+            OrderItems.Add(new OrderItem(item.Id, item.Price, count));
         }
 
         public void AddCoupon(Coupon coupon)
@@ -54,7 +54,7 @@
         {
             decimal total = 0;
 
-            foreach (var orderItem in _orderItems)
+            foreach (var orderItem in OrderItems)
             {
                 total += orderItem.GetTotal();
             }

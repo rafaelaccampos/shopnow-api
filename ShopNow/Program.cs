@@ -19,6 +19,7 @@ builder.Services.AddFluentMigratorCore()
     .ScanIn(typeof(Migrations).Assembly).For.Migrations());
 
 builder.Services.AddScoped<IItemRepository, ItemRepository>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 
 var app = builder.Build();
 

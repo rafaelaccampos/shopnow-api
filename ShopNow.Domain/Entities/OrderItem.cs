@@ -9,9 +9,10 @@
             Count = count;
         }
 
-        public int Id { get; private set; }
         public int IdItem { get; private set; }
-        public Item Item { get; set; }
+        public Item Item { get; private set; }
+        public Order Order { get; private set; }
+        public int IdOrder { get; private set; }
         public decimal Price { get; private set; }
         public int Count { get; private set; }
 

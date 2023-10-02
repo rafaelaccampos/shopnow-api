@@ -9,12 +9,12 @@ namespace ShopNow.Infra.Data.Mappers
         public void Configure(EntityTypeBuilder<OrderItem> builder)
         {
             builder
-                .ToTable("tb_order_item");
+                .ToTable("tb_order_items");
             builder
-                .HasKey(x => x.Id);
+                .Property(x => x.IdOrder)
+                .HasColumnName("cd_order");          
             builder
-                .Property(x => x.Id)
-                .HasColumnName("cd_order_item");
+                .HasKey(x => new { x.IdItem, x.IdOrder });
             builder
                 .Property(x => x.IdItem)
                 .HasColumnName("cd_item");
@@ -29,6 +29,10 @@ namespace ShopNow.Infra.Data.Mappers
                 .HasOne(x => x.Item)
                 .WithMany()
                 .HasForeignKey(x => x.IdItem);
+            builder
+                .HasOne(x => x.Order)
+                .WithMany()
+                .HasForeignKey(x => x.IdOrder);
         }
     }
 }
