@@ -47,7 +47,7 @@ namespace ShopNow.IntegrationTests.Specs.Repositories
             };
 
             var itemRepository = GetService<IItemRepository>();
-            var placeOrder = new PlaceOrder(itemRepository, new OrderRepositoryMemory());
+            var placeOrder = new PlaceOrder(itemRepository, new OrderRepositoryMemory(), null!);
             
             var simulateFreight = new SimulateFreight(placeOrder);
             var output = await simulateFreight.Execute(placeOrderInput);

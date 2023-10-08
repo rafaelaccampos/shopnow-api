@@ -8,11 +8,16 @@ namespace ShopNow.UseCases
     {
         private readonly IItemRepository _itemRepository;
         private readonly IOrderRepository _orderRepository;
+        private readonly ICouponRepository _couponRepository;
 
-        public PlaceOrder(IItemRepository itemRepository, IOrderRepository orderRepository)
+        public PlaceOrder(
+            IItemRepository itemRepository, 
+            IOrderRepository orderRepository,
+            ICouponRepository couponRepository)
         {
             _itemRepository = itemRepository;
             _orderRepository = orderRepository;
+            _couponRepository = couponRepository;
         }
 
         public async Task<PlaceOrderOutput> Execute(PlaceOrderInput placeOrderInput)
@@ -26,8 +31,13 @@ namespace ShopNow.UseCases
                 order.AddItem(item!, orderItem.Count);
             }
 
-            await _orderRepository.Save(order);
+            if (placeOrderInput.Coupon != null)
+            {
+                var coupon = await _couponRepository.FindByCode(placeOrderInput.Coupon);
+                order.AddCoupon(coupon);
+            }
 
+            await _orderRepository.Save(order);
             return new PlaceOrderOutput(order);
         }
     }

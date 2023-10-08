@@ -50,8 +50,9 @@ namespace ShopNow.IntegrationTests.Specs.Repositories
 
             var itemRepository = GetService<IItemRepository>();
             var orderRepository = GetService<IOrderRepository>();
+            var couponRepository = GetService<ICouponRepository>();
 
-            var placeOrder = new PlaceOrder(itemRepository, orderRepository);
+            var placeOrder = new PlaceOrder(itemRepository, orderRepository, couponRepository);
             var output = await placeOrder.Execute(placeOrderInput);
 
             using (new AssertionScope())
@@ -98,17 +99,22 @@ namespace ShopNow.IntegrationTests.Specs.Repositories
             };
 
             _context.Items.AddRange(items);
+
+            var coupon = new Coupon("VALE20", 20);
+            _context.Coupons.Add(coupon);
+
             await _context.SaveChangesAsync();
 
             var itemRepository = GetService<IItemRepository>();
             var orderRepository = GetService<IOrderRepository>();
+            var couponRepository = GetService<ICouponRepository>();
             
-            var placeOrder = new PlaceOrder(itemRepository, orderRepository);
+            var placeOrder = new PlaceOrder(itemRepository, orderRepository, couponRepository);
             var output = await placeOrder.Execute(placeOrderInput);
 
             using (new AssertionScope())
             {
-                output.Total.Should().Be(6090);
+                output.Total.Should().Be(4872);
                 output.OrderCode.Should().Be("202300000001");
             }
         }

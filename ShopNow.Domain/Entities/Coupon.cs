@@ -2,11 +2,16 @@
 {
     public class Coupon
     {
+        private Coupon()
+        {
+
+        }
+
         public Coupon(
             string code,
             decimal percentual,
-            DateTime? expiredDate = null,
-            DateTime? actualDate = null)
+            DateTime? expiredDate = default,
+            DateTime? actualDate = default)
         {
             Code = code;
             Percentual = percentual;

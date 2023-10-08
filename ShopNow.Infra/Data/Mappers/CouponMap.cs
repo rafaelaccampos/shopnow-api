@@ -21,6 +21,10 @@ namespace ShopNow.Infra.Data.Mappers
             builder
                 .Property(x => x.ExpiredDate)
                 .HasColumnName("expired_date");
+            builder
+                .Ignore(x => x.ActualDate);
+            builder
+                .Ignore(x => x.Discount);
         }
     }
 }

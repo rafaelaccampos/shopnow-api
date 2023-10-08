@@ -10,7 +10,7 @@ namespace ShopNow.Infra.Migrations
             Create.Table("tb_coupon")
                 .WithColumn("code").AsString(50).NotNullable().PrimaryKey()
                 .WithColumn("percentual").AsDecimal(18, 2).NotNullable()
-                .WithColumn("expired_date").AsDateTime().NotNullable();
+                .WithColumn("expired_date").AsDateTime().Nullable();
         }
 
         public override void Down()

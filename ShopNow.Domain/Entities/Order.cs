@@ -23,16 +23,17 @@
             CpfNumber = rawCpf;
         }
 
-        public int Id { get; set; }
+        public int Id { get; private set; }
         public string Code { get; private set; }
         public Cpf Cpf { get; private set; }
         public string CpfNumber { get; private set; }
         public Coupon Coupon { get; private set; }
-        public string CouponId { get; private set; }
+        public string IdCoupon { get; private set; }
         public DateTime IssueDate { get; private set; }
         public decimal Freight { get; private set; }
         public int Sequence { get; private set; }
         public ICollection<OrderItem> OrderItems { get; private set; } = new List<OrderItem>();
+
         public void AddItem(Item item, int count)
         {
             Freight += item.GetFreight() * count;

@@ -32,13 +32,13 @@ namespace ShopNow.Infra.Data.Mappers
                 .Property(x => x.Sequence)
                 .HasColumnName("sequence");
             builder
-                .Property(x => x.CouponId)
+                .Property(x => x.IdCoupon)
                 .HasColumnName("coupon_code");
 
             builder
                 .HasOne(x => x.Coupon)
                 .WithMany()
-                .HasForeignKey(x => x.CouponId);
+                .HasForeignKey(x => x.IdCoupon);
             builder.HasMany(x => x.OrderItems)
                 .WithOne(x => x.Order)
                 .HasForeignKey(x => x.IdOrder);
