@@ -2,6 +2,7 @@
 {
     public class Order
     {
+
         private Order()
         {
             
@@ -27,13 +28,11 @@
         public Cpf Cpf { get; private set; }
         public string CpfNumber { get; private set; }
         public Coupon Coupon { get; private set; }
-        public string CouponId { get; set; }
+        public string CouponId { get; private set; }
         public DateTime IssueDate { get; private set; }
         public decimal Freight { get; private set; }
-        public int Sequence { get; set; }
-
-        public IList<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
-
+        public int Sequence { get; private set; }
+        public ICollection<OrderItem> OrderItems { get; private set; } = new List<OrderItem>();
         public void AddItem(Item item, int count)
         {
             Freight += item.GetFreight() * count;

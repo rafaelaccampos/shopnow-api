@@ -15,8 +15,7 @@ namespace ShopNow.Infra.Data.Repositories.Database
 
         public async Task Save(Order order)
         {
-            await _shopContext.Orders.AddAsync(order);
-            _shopContext.Entry(order.OrderItems).State = EntityState.Detached;
+            _shopContext.Orders.Add(order);
             await _shopContext.SaveChangesAsync();
         }
     }
