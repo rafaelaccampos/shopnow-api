@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Bogus;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Respawn;
 using Respawn.Graph;
@@ -10,6 +11,7 @@ namespace ShopNow.IntegrationTests.Setup
     {
         protected static IServiceScope _scope;
         protected static ShopContext _context;
+        protected Faker Faker { get; } = new Faker("pt_BR");
 
         [SetUp]
         public async Task SetUpScope()

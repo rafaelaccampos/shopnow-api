@@ -23,6 +23,7 @@
   <ItemGroup>
     <ProjectReference Include="..\ShopNow.Domain\ShopNow.Domain.csproj" />
     <ProjectReference Include="..\ShopNow.Infra\ShopNow.Infra.csproj" />
+    <ProjectReference Include="..\ShopNow.Tests.Shared\ShopNow.Tests.Shared.csproj" />
     <ProjectReference Include="..\ShopNow\ShopNow.csproj" />
   </ItemGroup>
 

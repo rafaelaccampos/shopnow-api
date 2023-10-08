@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using Bogus.Extensions.Brazil;
+using FluentAssertions;
 using FluentAssertions.Execution;
 using ShopNow.Domain.Entities;
 using ShopNow.Domain.Repositories;
@@ -45,10 +46,11 @@ namespace ShopNow.IntegrationTests.Specs.Repositories
             };
 
             _context.Items.AddRange(items);
-            _context.SaveChanges();
+           await _context.SaveChangesAsync();
 
             var itemRepository = GetService<IItemRepository>();
             var orderRepository = GetService<IOrderRepository>();
+
             var placeOrder = new PlaceOrder(itemRepository, orderRepository);
             var output = await placeOrder.Execute(placeOrderInput);
 
@@ -58,6 +60,57 @@ namespace ShopNow.IntegrationTests.Specs.Repositories
                 output.OrderCode.Should().Be("202300000001");
             }
 
+        }
+
+        [Test]
+        public async Task ShouldBeAbleToPlaceOrderWithAnCoupon()
+        {
+            var placeOrderInput = new PlaceOrderInput()
+            {
+                Cpf = Faker.Person.Cpf(false),
+                OrderItems = new List<OrderItemInput>
+                {
+                    new OrderItemInput
+                    {
+                        IdItem = 1,
+                        Count = 1,
+                    },
+                    new OrderItemInput
+                    {
+                        IdItem = 2,
+                        Count = 1,
+                    },
+                    new OrderItemInput
+                    {
+                        IdItem = 3,
+                        Count = 3,
+                    }
+                },
+                IssueDate = new DateTime(2023, 07, 30),
+                Coupon = "VALE20",
+            };
+
+            var items = new List<Item>()
+            {
+                new Item(1, "Guitarra", "Eletrônicos", 1000, 100, 50, 15, 3),
+                new Item(2, "Amplificador", "Eletrônicos", 5000, 50, 50, 50, 22),
+                new Item(3, "Cabo", "Eletrônicos", 30, 10, 10, 10, 1),
+            };
+
+            _context.Items.AddRange(items);
+            await _context.SaveChangesAsync();
+
+            var itemRepository = GetService<IItemRepository>();
+            var orderRepository = GetService<IOrderRepository>();
+            
+            var placeOrder = new PlaceOrder(itemRepository, orderRepository);
+            var output = await placeOrder.Execute(placeOrderInput);
+
+            using (new AssertionScope())
+            {
+                output.Total.Should().Be(6090);
+                output.OrderCode.Should().Be("202300000001");
+            }
         }
     }
 }

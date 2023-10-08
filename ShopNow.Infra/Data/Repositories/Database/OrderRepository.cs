@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using ShopNow.Domain.Entities;
+﻿using ShopNow.Domain.Entities;
 using ShopNow.Domain.Repositories;
 
 namespace ShopNow.Infra.Data.Repositories.Database

@@ -29,9 +29,9 @@ namespace ShopNow.Infra.Data.Mappers
                 .HasOne(x => x.Item)
                 .WithMany()
                 .HasForeignKey(x => x.IdItem);
-            builder.HasOne(oi => oi.Order)
-                .WithMany(o => o.OrderItems)
-                .HasForeignKey(oi => oi.IdOrder);
+            builder.HasOne(x => x.Order)
+                .WithMany(x => x.OrderItems)
+                .HasForeignKey(x => x.IdOrder);
         }
     }
 }
