@@ -62,7 +62,7 @@
             if (Coupon != null)
             {
                 Coupon.AddDiscount(total);
-                total -= Coupon.GetDiscount();
+                total -= Coupon.Discount;
             }
 
             return total;

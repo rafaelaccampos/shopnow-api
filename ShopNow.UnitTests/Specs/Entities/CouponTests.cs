@@ -12,7 +12,7 @@ namespace ShopNow.UnitTests.Specs.Entities
 
             coupon.AddDiscount(1000);
 
-            coupon.GetDiscount()
+            coupon.Discount
                 .Should()
                 .Be(350);
         }
@@ -26,7 +26,7 @@ namespace ShopNow.UnitTests.Specs.Entities
 
             coupon.AddDiscount(1000);
 
-            coupon.GetDiscount()
+            coupon.Discount
                 .Should()
                 .Be(350);
         }
@@ -40,7 +40,7 @@ namespace ShopNow.UnitTests.Specs.Entities
 
             coupon.AddDiscount(1000);
 
-            coupon.GetDiscount()
+            coupon.Discount
                   .Should()
                   .Be(0);
         }

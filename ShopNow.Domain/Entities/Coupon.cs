@@ -44,9 +44,9 @@
             return false;
         }
 
-        public decimal GetDiscount()
+        public bool IsValid()
         {
-            return Discount;
+            return !IsExpired();
         }
     }
 }
