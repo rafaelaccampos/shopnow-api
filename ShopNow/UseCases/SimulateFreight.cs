@@ -1,21 +1,28 @@
-﻿using ShopNow.Dtos;
+﻿using ShopNow.Domain.Repositories;
+using ShopNow.Dtos;
 
 namespace ShopNow.UseCases
 {
     public class SimulateFreight
     {
-        private readonly PlaceOrder _placeOrder;
+        private readonly IItemRepository _itemRepository;
 
-        public SimulateFreight(PlaceOrder placeOrder)
+        public SimulateFreight(IItemRepository itemRepository)
         {
-            _placeOrder = placeOrder;
+            _itemRepository = itemRepository;
         }
 
-        public async Task<decimal> Execute(PlaceOrderInput placeOrderInput)
+        public async Task<decimal> Execute(SimulateFreightInput simulateFreightInput)
         {
-            var order = await _placeOrder.Execute(placeOrderInput);
+            decimal freight = 0;
 
-            return order.Freight;
+            foreach(var orderItem in simulateFreightInput.OrderItems)
+            {
+                var item = await _itemRepository.FindByIdAsync(orderItem.IdItem);
+                freight += item.GetFreight() * orderItem.Count;
+            }
+
+            return freight;
         }
     }
 }
