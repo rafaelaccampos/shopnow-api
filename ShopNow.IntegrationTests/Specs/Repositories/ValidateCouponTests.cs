@@ -18,13 +18,45 @@ namespace ShopNow.IntegrationTests.Specs.Repositories
                 new DateTime(2023, 09, 27));
 
             _context.Coupons.Add(coupon);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
 
             var couponRepository = GetService<ICouponRepository>();
+
             var validateCoupon = new ValidateCoupon(couponRepository);
             var isValid = await validateCoupon.Execute("VALE20");
 
             isValid.Should().BeTrue();
+        }
+
+        [Test]
+        public async Task ShouldBeAbleToVerifyAnInvalidCoupon()
+        {
+            var coupon = new Coupon(
+                "VALE20",
+                20,
+                new DateTime(2023, 09, 28),
+                new DateTime(2023, 09, 28));
+
+            _context.Coupons.Add(coupon);
+            await _context.SaveChangesAsync();
+
+            var couponRepository = GetService<ICouponRepository>();
+
+            var validateCoupon = new ValidateCoupon(couponRepository);
+            var isInvalid = await validateCoupon.Execute("VALE20");
+
+            isInvalid.Should().BeTrue();
+        }
+
+        [Test]
+        public async Task ShouldBeAbleToInvalidateAnCouponThatNotExists()
+        {
+            var couponRepository = GetService<ICouponRepository>();
+
+            var validateCoupon = new ValidateCoupon(couponRepository);
+            var isInvalid = await validateCoupon.Execute("VALE20");
+
+            isInvalid.Should().BeFalse();
         }
 
     }

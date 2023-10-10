@@ -20,9 +20,9 @@ namespace ShopNow.UnitTests.Specs.Entities
         [Test]
         public void ShouldBeAbleToApplyDiscountWithExpiredDate()
         {
-            var expireDate = new DateTime(2022, 09, 28);
+            var expiredDate = new DateTime(2022, 09, 28);
             var actualDate = new DateTime(2022, 09, 18);
-            var coupon = new Coupon("VALE35", 35, expireDate, actualDate);
+            var coupon = new Coupon("VALE35", 35, expiredDate, actualDate);
 
             coupon.AddDiscount(1000);
 
@@ -34,9 +34,9 @@ namespace ShopNow.UnitTests.Specs.Entities
         [Test]
         public void ShouldNotBeAbleToApplyDiscountIfCouponHasExpired()
         {
-            var expireDate = DateTime.Now.AddDays(-2);
+            var expiredDate = DateTime.Now.AddDays(-2);
             var actualDate = DateTime.Now;
-            var coupon = new Coupon("VALE20", 20, expireDate, actualDate);
+            var coupon = new Coupon("VALE20", 20, expiredDate, actualDate);
 
             coupon.AddDiscount(1000);
 
@@ -45,5 +45,24 @@ namespace ShopNow.UnitTests.Specs.Entities
                   .Be(0);
         }
 
+        [Test]
+        public void ShouldBeAbleToVerifyIfCouponIsValid()
+        {
+            var expiredDate = new DateTime(2023, 09, 28);
+            var actualDate = new DateTime(2023, 09, 27);
+            var coupon = new Coupon("VALE20", 20, expiredDate, actualDate);
+
+            coupon.IsValid().Should().BeTrue();
+        }
+
+        [Test]
+        public void ShouldBeAbleToVerifyIfCouponIsNotValid()
+        {
+            var expiredDate = new DateTime(2023, 09, 28);
+            var actualDate = DateTime.Now;
+            var coupon = new Coupon("VALE20", 20, expiredDate, actualDate);
+
+            coupon.IsValid().Should().BeFalse();
+        }
     }
 }

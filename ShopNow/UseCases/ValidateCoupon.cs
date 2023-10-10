@@ -15,7 +15,9 @@ namespace ShopNow.UseCases
         public async Task<bool> Execute(string code)
         {
             var coupon = await _couponRepository.FindByCode(code);
-            return coupon.IsValid();
+            return coupon != null
+                ? coupon.IsValid() 
+                : false;
         }
     }
 }
