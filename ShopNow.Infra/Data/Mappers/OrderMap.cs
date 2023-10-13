@@ -27,7 +27,8 @@ namespace ShopNow.Infra.Data.Mappers
                 .HasColumnName("issue_date");
             builder
                 .Property(x => x.Freight)
-                .HasColumnName("freight");
+                .HasColumnName("freight")
+                 .HasPrecision(18, 2);
             builder
                 .Property(x => x.Sequence)
                 .HasColumnName("sequence");

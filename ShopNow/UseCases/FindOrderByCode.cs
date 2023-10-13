@@ -13,7 +13,7 @@ namespace ShopNow.UseCases
             _orderRepository = orderRepository;
         }
 
-        public async Task<Order> Execute(OrderCodeInput orderCodeInput)
+        public async Task<Order?> Execute(OrderCodeInput orderCodeInput)
         {
             return await _orderRepository.FindByCode(orderCodeInput.OrderCode);
         }

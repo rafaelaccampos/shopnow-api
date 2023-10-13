@@ -10,7 +10,6 @@ namespace ShopNow.IntegrationTests.Specs.Repositories
 {
     public class FindOrderByCodeTests : DatabaseBase
     {
-
         [Test]
         public async Task ShouldBeAbleToFindOrderByOrderCode()
         {
@@ -35,6 +34,7 @@ namespace ShopNow.IntegrationTests.Specs.Repositories
             await _context.SaveChangesAsync();
 
             var orderRepository = GetService<IOrderRepository>();
+
             var findOrderByCode = new FindOrderByCode(orderRepository);
 
             var orderCodeInput = new OrderCodeInput
@@ -44,7 +44,9 @@ namespace ShopNow.IntegrationTests.Specs.Repositories
 
             var orderInDatabase = await findOrderByCode.Execute(orderCodeInput);
 
-            orders.First().Should().BeEquivalentTo(orderInDatabase);
+            orders.First().Should().BeEquivalentTo(orderInDatabase, 
+                options => options.Excluding(o => o.Cpf)
+                .For(o => o.OrderItems).Exclude(o => o.Order));
         }
     }
 }

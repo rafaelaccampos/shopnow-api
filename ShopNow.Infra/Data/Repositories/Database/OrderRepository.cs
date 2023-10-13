@@ -1,4 +1,5 @@
-﻿using ShopNow.Domain.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using ShopNow.Domain.Entities;
 using ShopNow.Domain.Repositories;
 
 namespace ShopNow.Infra.Data.Repositories.Database
@@ -14,7 +15,10 @@ namespace ShopNow.Infra.Data.Repositories.Database
 
         public async Task<Order?> FindByCode(string code)
         {
-            return await _shopContext.Orders.FindAsync(code);
+            return await _shopContext.Orders
+                .Include(c => c.OrderItems)
+                .ThenInclude(c => c.Item)
+                .SingleAsync(c => c.Code == code);
         }
 
         public async Task Save(Order order)

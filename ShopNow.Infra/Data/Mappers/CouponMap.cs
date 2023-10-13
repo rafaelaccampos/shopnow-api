@@ -17,7 +17,8 @@ namespace ShopNow.Infra.Data.Mappers
                 .HasColumnName("code");
             builder
                 .Property(x => x.Percentual)
-                .HasColumnName("percentual");
+                .HasColumnName("percentual")
+                .HasPrecision(18, 2);
             builder
                 .Property(x => x.ExpiredDate)
                 .HasColumnName("expired_date");

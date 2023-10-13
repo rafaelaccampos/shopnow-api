@@ -20,7 +20,8 @@ namespace ShopNow.Infra.Data.Mappers
                 .HasColumnName("cd_item");
             builder
                 .Property(x => x.Price)
-                .HasColumnName("price");
+                .HasColumnName("price")
+                .HasPrecision(18, 2);
             builder
                 .Property(x => x.Count)
                 .HasColumnName("count");

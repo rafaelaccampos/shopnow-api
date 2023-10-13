@@ -23,19 +23,24 @@ namespace ShopNow.Infra.Data.Mappers
                 .HasColumnName("category");
             builder
                 .Property(x => x.Price)
-                .HasColumnName("price");
+                .HasColumnName("price")
+                .HasPrecision(18, 2); ;
             builder
                 .Property(x => x.Width)
-                .HasColumnName("width");
+                .HasColumnName("width")
+                .HasPrecision(18, 2);
             builder
                 .Property(x => x.Height)
-                .HasColumnName("height");
+                .HasColumnName("height")
+                .HasPrecision(18, 2);
             builder
                 .Property(x => x.Length)
-                .HasColumnName("length");
+                .HasColumnName("length")
+                .HasPrecision(18, 2);
             builder
                 .Property(x => x.Weight)
-                .HasColumnName("weight");
+                .HasColumnName("weight")
+                .HasPrecision(18, 2);
         }
     }
 }
