@@ -12,6 +12,11 @@ namespace ShopNow.Infra.Data.Repositories.Database
             _shopContext = shopContext;
         }
 
+        public async Task<Order?> FindByCode(string code)
+        {
+            return await _shopContext.Orders.FindAsync(code);
+        }
+
         public async Task Save(Order order)
         {
             _shopContext.Orders.Add(order);

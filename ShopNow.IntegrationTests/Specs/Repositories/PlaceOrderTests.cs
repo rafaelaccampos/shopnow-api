@@ -60,7 +60,6 @@ namespace ShopNow.IntegrationTests.Specs.Repositories
                 output.Total.Should().Be(6090);
                 output.OrderCode.Should().Be("202300000001");
             }
-
         }
 
         [Test]
@@ -97,12 +96,10 @@ namespace ShopNow.IntegrationTests.Specs.Repositories
                 new Item(2, "Amplificador", "Eletrônicos", 5000, 50, 50, 50, 22),
                 new Item(3, "Cabo", "Eletrônicos", 30, 10, 10, 10, 1),
             };
-
             _context.Items.AddRange(items);
 
             var coupon = new Coupon("VALE20", 20);
             _context.Coupons.Add(coupon);
-
             await _context.SaveChangesAsync();
 
             var itemRepository = GetService<IItemRepository>();

@@ -21,7 +21,6 @@ namespace ShopNow.IntegrationTests.Specs.Repositories
             await _context.SaveChangesAsync();
 
             var couponRepository = GetService<ICouponRepository>();
-
             var validateCoupon = new ValidateCoupon(couponRepository);
             var isValid = await validateCoupon.Execute("VALE20");
 
@@ -35,7 +34,7 @@ namespace ShopNow.IntegrationTests.Specs.Repositories
                 "VALE20",
                 20,
                 new DateTime(2023, 09, 28),
-                new DateTime(2023, 09, 28));
+                new DateTime(2023, 09, 26));
 
             _context.Coupons.Add(coupon);
             await _context.SaveChangesAsync();
