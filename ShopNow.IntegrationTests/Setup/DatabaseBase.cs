@@ -30,7 +30,7 @@ namespace ShopNow.IntegrationTests.Setup
                 }
             });
 
-            respawner?.ResetAsync(connectionString);
+            await respawner!.ResetAsync(connectionString);
         }
 
         protected static T GetService<T>()
