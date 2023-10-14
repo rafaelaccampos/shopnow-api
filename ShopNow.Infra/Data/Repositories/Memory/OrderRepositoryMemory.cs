@@ -7,6 +7,11 @@ namespace ShopNow.Infra.Data.Repositories.Memory
     {
         private readonly IList<Order> _orders = new List<Order>();
 
+        public Task<List<Order?>> FindAllOrders()
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<Order?> FindByCode(string code)
         {
             throw new NotImplementedException();
