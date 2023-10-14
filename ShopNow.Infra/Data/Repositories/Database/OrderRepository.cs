@@ -18,6 +18,7 @@ namespace ShopNow.Infra.Data.Repositories.Database
             return await _shopContext.Orders
                 .Include(c => c.OrderItems)
                 .ThenInclude(c => c.Item)
+                .Include(c => c.Coupon)
                 .SingleAsync(c => c.Code == code);
         }
 

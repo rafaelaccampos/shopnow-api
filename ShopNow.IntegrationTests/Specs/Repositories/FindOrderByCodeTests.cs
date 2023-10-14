@@ -46,7 +46,8 @@ namespace ShopNow.IntegrationTests.Specs.Repositories
 
             orders.First().Should().BeEquivalentTo(orderInDatabase, 
                 options => options.Excluding(o => o.Cpf)
-                .For(o => o.OrderItems).Exclude(o => o.Order));
+                .For(o => o.OrderItems)
+                .Exclude(o => o.Order));
         }
     }
 }
