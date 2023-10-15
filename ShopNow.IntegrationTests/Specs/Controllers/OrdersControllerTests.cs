@@ -13,7 +13,7 @@ namespace ShopNow.IntegrationTests.Specs.Controllers
         private const string URL_BASE = "/orders";
 
         [Test]
-        public async Task CreateShouldBeAbleToPlaceOrder()
+        public async Task CreateShouldBeAbleToPlaceOrderWithCoupon()
         {
             var items = new List<Item>
             {
@@ -21,6 +21,7 @@ namespace ShopNow.IntegrationTests.Specs.Controllers
                 new Item(2, "Amplificador", "Eletrônicos", 5000, 50, 50, 50, 22),
                 new Item(3, "Cabo", "Eletrônicos", 30, 10, 10, 10, 1),
             };
+
             _context.AddRange(items);
             await _context.SaveChangesAsync();
 
@@ -54,7 +55,6 @@ namespace ShopNow.IntegrationTests.Specs.Controllers
             };
 
             var response = await _httpClient.PostAsync(URL_BASE, placeOrderInput.ToJsonContent());
-
             response.StatusCode.Should().Be(HttpStatusCode.OK);
         }
     }

@@ -27,7 +27,7 @@ namespace ShopNow.Controllers
         public async Task<IActionResult> Create([FromBody] PlaceOrderInput placeOrderInput)
         {
             var createOrder = new PlaceOrder(_itemRepository, _orderRepository, _couponRepository);
-            var order = createOrder.Execute(placeOrderInput);
+            var order = await createOrder.Execute(placeOrderInput);
 
             return Ok(order);
         }

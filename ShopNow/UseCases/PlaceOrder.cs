@@ -27,14 +27,13 @@ namespace ShopNow.UseCases
             foreach (var orderItem in placeOrderInput.OrderItems)
             {
                 var item = await _itemRepository.FindByIdAsync(orderItem.IdItem);
-
                 order.AddItem(item!, orderItem.Count);
             }
 
             if (placeOrderInput.Coupon != null)
             {
                 var coupon = await _couponRepository.FindByCode(placeOrderInput.Coupon);
-                order.AddCoupon(coupon);
+                order.AddCoupon(coupon!);
             }
 
             await _orderRepository.Save(order);
