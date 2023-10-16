@@ -1,5 +1,6 @@
 ﻿using Bogus.Extensions.Brazil;
 using FluentAssertions;
+using FluentAssertions.Execution;
 using ShopNow.Domain.Entities;
 using ShopNow.Dtos;
 using ShopNow.IntegrationTests.Setup;
@@ -55,7 +56,20 @@ namespace ShopNow.IntegrationTests.Specs.Controllers
             };
 
             var response = await _httpClient.PostAsync(URL_BASE, placeOrderInput.ToJsonContent());
-            response.StatusCode.Should().Be(HttpStatusCode.OK);
+            var responseContent = await response.Deserialize<PlaceOrderOutput>();
+            
+            var expectedResponseContent = new 
+            { 
+                OrderCode = "202300000001",
+                Total = 4872,
+                Freight = 280,
+            };
+
+            using(new AssertionScope())
+            {
+                response.StatusCode.Should().Be(HttpStatusCode.OK);
+                responseContent.Should().BeEquivalentTo(expectedResponseContent);
+            }
         }
     }
 }
