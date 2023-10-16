@@ -65,11 +65,42 @@ namespace ShopNow.IntegrationTests.Specs.Controllers
                 Freight = 280,
             };
 
-            using(new AssertionScope())
+            using (new AssertionScope())
             {
                 response.StatusCode.Should().Be(HttpStatusCode.OK);
                 responseContent.Should().BeEquivalentTo(expectedResponseContent);
             }
+        }
+
+        [Test]
+        public async Task GetShouldBeAbleToListOrders()
+        {
+            var item = new Item(1, "Guitarra", "Eletrônicos", 1000, 100, 50, 15, 3);
+            _context.Add(item);
+            await _context.SaveChangesAsync();
+
+            var cpf = Faker.Person.Cpf(false);
+            var issueDate = new DateTime(2023, 09, 28);
+            var orders = new List<Order>
+            {
+                new Order(cpf, issueDate, 1),
+                new Order(cpf, issueDate, 2)
+            };       
+            foreach(var order in orders)
+            {
+                order.AddItem(item, 2);
+            }
+            _context.AddRange(orders);
+            await _context.SaveChangesAsync();
+
+            var response = await _httpClient.GetAsync(URL_BASE);
+            var responseContent = await response.Deserialize<Order>();
+
+            using (new AssertionScope())
+            {
+                response.StatusCode.Should().Be(HttpStatusCode.OK);
+                responseContent.Should().BeEquivalentTo(orders);
+            }        
         }
     }
 }

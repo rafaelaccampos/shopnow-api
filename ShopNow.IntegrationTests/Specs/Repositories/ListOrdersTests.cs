@@ -1,5 +1,6 @@
 ﻿using Bogus.Extensions.Brazil;
 using FluentAssertions;
+using FluentAssertions.Execution;
 using ShopNow.Domain.Entities;
 using ShopNow.Domain.Repositories;
 using ShopNow.IntegrationTests.Setup;
@@ -38,10 +39,14 @@ namespace ShopNow.IntegrationTests.Specs.Repositories
             var listOrders = new ListOrders(orderRepository);
             var ordersInDatabase = await listOrders.Execute();
 
-            orders.Should().BeEquivalentTo(ordersInDatabase, options 
-                => options.Excluding(o => o.Cpf)
-                .For(o => o.OrderItems)
-                .Exclude(o => o.Order));
+            using(new AssertionScope())
+            {
+                ordersInDatabase.Should().HaveCount(2);
+                orders.Should().BeEquivalentTo(ordersInDatabase, options
+                    => options.Excluding(o => o.Cpf)
+                    .For(o => o.OrderItems)
+                    .Exclude(o => o.Order));
+            }
         }
     }
 }
