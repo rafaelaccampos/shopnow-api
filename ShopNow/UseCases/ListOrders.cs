@@ -12,7 +12,7 @@ namespace ShopNow.UseCases
             _orderRepository = orderRepository; 
         }
 
-        public async Task<List<Order?>> Execute()
+        public async Task<IEnumerable<Order?>> Execute()
         {
             return await _orderRepository.FindAllOrders();
         }

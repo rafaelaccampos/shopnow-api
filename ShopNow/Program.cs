@@ -4,10 +4,13 @@ using ShopNow.Domain.Repositories;
 using ShopNow.Infra.Data;
 using ShopNow.Infra.Data.Repositories.Database;
 using ShopNow.Infra.Migrations;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(x => 
+    x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
 builder.Services.AddDbContext<ShopContext>(
     options => options.UseSqlServer(builder.Configuration.GetConnectionString("Shops")));
 builder.Services.AddEndpointsApiExplorer();

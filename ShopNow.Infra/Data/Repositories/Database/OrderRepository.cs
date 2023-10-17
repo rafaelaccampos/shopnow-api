@@ -22,7 +22,7 @@ namespace ShopNow.Infra.Data.Repositories.Database
                 .SingleAsync(c => c.Code == code);
         }
 
-        public async Task<List<Order>> FindAllOrders()
+        public async Task<IEnumerable<Order?>> FindAllOrders()
         {
             return await _shopContext.Orders
                 .Include(c => c.OrderItems)

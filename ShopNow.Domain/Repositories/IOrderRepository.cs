@@ -6,7 +6,7 @@ namespace ShopNow.Domain.Repositories
     {
         Task<Order?> FindByCode(string code);
 
-        Task<List<Order?>> FindAllOrders();
+        Task<IEnumerable<Order?>> FindAllOrders();
 
         Task Save(Order order);
     }

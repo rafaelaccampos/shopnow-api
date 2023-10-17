@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ShopNow.Domain.Entities;
 using ShopNow.Domain.Repositories;
 using ShopNow.Dtos;
 using ShopNow.UseCases;
@@ -30,6 +31,15 @@ namespace ShopNow.Controllers
             var order = await createOrder.Execute(placeOrderInput);
 
             return Ok(order);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Order>>> Get()
+        {
+            var listOrders = new ListOrders(_orderRepository);
+            var orders = await listOrders.Execute();
+
+            return Ok(orders);
         }
     }
 }
