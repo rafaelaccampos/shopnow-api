@@ -94,12 +94,13 @@ namespace ShopNow.IntegrationTests.Specs.Controllers
             await _context.SaveChangesAsync();
 
             var response = await _httpClient.GetAsync(URL_BASE);
-            var responseContent = await response.Deserialize<Order>();
+            var responseOrderAsJson = await response.Content.ReadAsStringAsync();
+            var expectedOrderAsJson = orders.Serialize();
 
             using (new AssertionScope())
             {
                 response.StatusCode.Should().Be(HttpStatusCode.OK);
-                responseContent.Should().BeEquivalentTo(orders);
+                responseOrderAsJson.ShouldBeAnEquivalentJson(expectedOrderAsJson);
             }        
         }
     }

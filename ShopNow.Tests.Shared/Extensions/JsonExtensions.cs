@@ -1,7 +1,11 @@
-﻿using System.Net.Http.Json;
+﻿using FluentAssertions;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System.Net.Mime;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Text.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace ShopNow.Tests.Shared.Extensions
 {
@@ -9,17 +13,39 @@ namespace ShopNow.Tests.Shared.Extensions
     {
         public static HttpContent ToJsonContent(this object obj) 
         {
-            return new StringContent(JsonSerializer.Serialize(obj), Encoding.UTF8, mediaType: MediaTypeNames.Application.Json);
+            return new StringContent(JsonConvert.SerializeObject(obj), Encoding.UTF8, mediaType: MediaTypeNames.Application.Json);
         }
 
-        public static async Task<T> Deserialize<T>(this HttpResponseMessage responseMessage)
+        public static void ShouldBeAnEquivalentJson(this string actual, string expected) 
         {
-            if (responseMessage is null)
+            var actualJToken = actual.ToJToken();
+            var expectedJToken = expected.ToJToken();
+            var areEquals = JToken.DeepEquals(actualJToken, expectedJToken);
+            areEquals.Should().BeTrue();
+        }
+
+        public static string Serialize(this object obj)
+        {
+            var settings = new JsonSerializerSettings
             {
-                throw new ArgumentException(nameof(responseMessage));
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+                NullValueHandling = NullValueHandling.Ignore,
+                ContractResolver = new DefaultContractResolver
+                {
+                    NamingStrategy = new CamelCaseNamingStrategy()
+                }
+            };
+            return JsonConvert.SerializeObject(obj, settings);
+        }
+
+        private static JToken ToJToken(this string text)
+        {
+            if (string.IsNullOrEmpty(text))
+            {
+                throw new ArgumentException("The JSON sent to the JToken() method is empty or is null.");
             }
-            
-            return (await responseMessage.Content.ReadFromJsonAsync<T>())!;
+
+            return JToken.Parse(text);
         }
     }
 }

@@ -2,7 +2,7 @@
 {
     public class Order
     {
-        private Order()
+        public Order()
         {
             
         }
