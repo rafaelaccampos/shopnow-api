@@ -56,19 +56,19 @@ namespace ShopNow.IntegrationTests.Specs.Controllers
             };
 
             var response = await _httpClient.PostAsync(URL_BASE, placeOrderInput.ToJsonContent());
-            var responseContent = await response.Deserialize<PlaceOrderOutput>();
+            var responseContent = await response.Content.ReadAsStringAsync();
             
-            var expectedResponseContent = new 
+            var expectedResponseContent = new PlaceOrderOutput
             { 
                 OrderCode = "202300000001",
-                Total = 4872,
-                Freight = 280,
-            };
+                Total = 4872M,
+                Freight = 280M,
+            }.Serialize();
 
             using (new AssertionScope())
             {
                 response.StatusCode.Should().Be(HttpStatusCode.OK);
-                responseContent.Should().BeEquivalentTo(expectedResponseContent);
+                responseContent.ShouldBeAnEquivalentJson(expectedResponseContent);
             }
         }
 

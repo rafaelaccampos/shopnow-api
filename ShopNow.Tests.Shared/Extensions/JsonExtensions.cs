@@ -29,7 +29,7 @@ namespace ShopNow.Tests.Shared.Extensions
             var settings = new JsonSerializerSettings
             {
                 ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
-                NullValueHandling = NullValueHandling.Ignore,
+                FloatFormatHandling = FloatFormatHandling.DefaultValue,
                 ContractResolver = new DefaultContractResolver
                 {
                     NamingStrategy = new CamelCaseNamingStrategy()
