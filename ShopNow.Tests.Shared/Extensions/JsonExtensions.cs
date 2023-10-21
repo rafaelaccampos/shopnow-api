@@ -28,6 +28,7 @@ namespace ShopNow.Tests.Shared.Extensions
             {
                 ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
                 FloatFormatHandling = FloatFormatHandling.DefaultValue,
+                NullValueHandling = NullValueHandling.Ignore,
                 ContractResolver = new DefaultContractResolver
                 {
                     NamingStrategy = new CamelCaseNamingStrategy()
