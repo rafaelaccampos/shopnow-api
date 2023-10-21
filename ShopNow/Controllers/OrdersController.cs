@@ -16,7 +16,7 @@ namespace ShopNow.Controllers
 
         public OrdersController(
             IItemRepository itemRepository,
-            IOrderRepository orderRepository, 
+            IOrderRepository orderRepository,
             ICouponRepository couponRepository)
         {
             _itemRepository = itemRepository;
@@ -29,7 +29,6 @@ namespace ShopNow.Controllers
         {
             var createOrder = new PlaceOrder(_itemRepository, _orderRepository, _couponRepository);
             var order = await createOrder.Execute(placeOrderInput);
-
             return Ok(order);
         }
 
@@ -38,8 +37,16 @@ namespace ShopNow.Controllers
         {
             var listOrders = new ListOrders(_orderRepository);
             var orders = await listOrders.Execute();
-
             return Ok(orders);
+        }
+
+        [HttpGet("{orderCode}")]
+        public async Task<IActionResult> GetByCode(string orderCode)
+        {
+            var findOrderByCode = new FindOrderByCode(_orderRepository);
+            var orderCodeInput = new OrderCodeInput { OrderCode = orderCode };
+            var order = await findOrderByCode.Execute(orderCodeInput);
+            return Ok(order);
         }
     }
 }
