@@ -2,9 +2,9 @@
 {
     public class Order
     {
-        public Order()
+        private Order()
         {
-            
+            Cpf = new Cpf();
         }
 
         public Order(string rawCpf, DateTime issueDate = new DateTime(), int sequence = 1)
@@ -24,7 +24,7 @@
 
         public int Id { get; private set; }
         public string Code { get; private set; }
-        public Cpf Cpf { get; private set; }
+        public Cpf? Cpf { get; private set; }
         public string CpfNumber { get; private set; }
         public Coupon Coupon { get; private set; }
         public string? IdCoupon { get; private set; }
