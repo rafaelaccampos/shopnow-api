@@ -59,6 +59,5 @@ namespace ShopNow.IntegrationTests.Specs.Repositories
 
             isInvalid.Should().BeFalse();
         }
-
     }
 }
