@@ -12,12 +12,10 @@ namespace ShopNow.UseCases
             _couponRepository = couponRepository;
         }
 
-        public async Task<bool> Execute(string code)
+        public async Task<bool> Execute(string code, DateTime actualDate = new DateTime())
         {
             var coupon = await _couponRepository.FindByCode(code);
-            return coupon != null
-                ? coupon.IsValid() 
-                : false;
+            return coupon != null && coupon.IsValid(actualDate);
         }
     }
 }

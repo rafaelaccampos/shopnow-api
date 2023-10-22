@@ -18,7 +18,6 @@ namespace ShopNow.IntegrationTests.Specs.Repositories
             await _context.SaveChangesAsync();
 
             var couponRepository = GetService<ICouponRepository>();
-
             var couponInDatabase = await couponRepository.FindByCode(coupon.Code);
 
             coupon.Should().BeEquivalentTo(couponInDatabase, options => options
@@ -28,14 +27,13 @@ namespace ShopNow.IntegrationTests.Specs.Repositories
         }
 
         [Test]
-        public async Task ShoulBeAbleToReturnNullWhenCouponWasNotFound()
+        public async Task ShouldBeAbleToReturnNullWhenCouponWasNotFound()
         {
             var expiredDate = new DateTime(2023, 10, 09);
             var actualDate = new DateTime(2023, 10, 07);
             var coupon = new Coupon("VALE30", 30, expiredDate, actualDate);
 
             var couponRepository = GetService<ICouponRepository>();
-
             var couponInDatabase = await couponRepository.FindByCode(coupon.Code);
 
             couponInDatabase.Should().BeNull();

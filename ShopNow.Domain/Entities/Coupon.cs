@@ -11,7 +11,7 @@
             string code,
             decimal percentual,
             DateTime? expiredDate = default,
-            DateTime? actualDate = default)
+            DateTime actualDate = default)
         {
             Code = code;
             Percentual = percentual;
@@ -23,11 +23,11 @@
         public decimal Percentual { get; private set; }
         public decimal Discount { get; private set; }
         public DateTime? ExpiredDate { get; private set; }
-        public DateTime? ActualDate { get; private set; }
+        public DateTime ActualDate { get; private set; }
 
         public void AddDiscount(decimal value)
         {
-            var couponExpired = IsExpired();
+            var couponExpired = IsExpired(ActualDate);
 
             if(!couponExpired)
             {
@@ -35,18 +35,25 @@
             }
         }
 
-        public bool IsExpired()
+        public bool IsExpired(DateTime actualDate = new DateTime())
         {
-            if(ExpiredDate != null && ExpiredDate < ActualDate)
+            ActualDate = actualDate;
+
+            if (ExpiredDate == null)
             {
-                return true;
+                return false;
             }
-            return false;
+
+            if (ActualDate == DateTime.MinValue)
+            {
+                ActualDate = DateTime.Now;
+            }
+            return ExpiredDate < ActualDate;
         }
 
-        public bool IsValid()
+        public bool IsValid(DateTime actualDate = new DateTime())
         {
-            return !IsExpired();
+            return !IsExpired(actualDate);
         }
     }
 }

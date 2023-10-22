@@ -11,18 +11,19 @@ namespace ShopNow.IntegrationTests.Specs.Repositories
         [Test]
         public async Task ShouldBeAbleToVerifyAValidCoupon()
         {
+            var actualDate = new DateTime(2023, 09, 27);
             var coupon = new Coupon(
                 "VALE20", 
                 20, 
                 new DateTime(2023, 09, 28), 
-                new DateTime(2023, 09, 27));
+                actualDate);
 
             _context.Coupons.Add(coupon);
             await _context.SaveChangesAsync();
 
             var couponRepository = GetService<ICouponRepository>();
             var validateCoupon = new ValidateCoupon(couponRepository);
-            var isValid = await validateCoupon.Execute("VALE20");
+            var isValid = await validateCoupon.Execute("VALE20", actualDate);
 
             isValid.Should().BeTrue();
         }
@@ -30,11 +31,12 @@ namespace ShopNow.IntegrationTests.Specs.Repositories
         [Test]
         public async Task ShouldBeAbleToVerifyAnInvalidCoupon()
         {
+            var actualDate = new DateTime(2023, 09, 29);
             var coupon = new Coupon(
                 "VALE20",
                 20,
                 new DateTime(2023, 09, 28),
-                new DateTime(2023, 09, 26));
+                actualDate);
 
             _context.Coupons.Add(coupon);
             await _context.SaveChangesAsync();
@@ -42,9 +44,9 @@ namespace ShopNow.IntegrationTests.Specs.Repositories
             var couponRepository = GetService<ICouponRepository>();
 
             var validateCoupon = new ValidateCoupon(couponRepository);
-            var isInvalid = await validateCoupon.Execute("VALE20");
+            var isValid = await validateCoupon.Execute("VALE20", actualDate);
 
-            isInvalid.Should().BeTrue();
+            isValid.Should().BeFalse();
         }
 
         [Test]
