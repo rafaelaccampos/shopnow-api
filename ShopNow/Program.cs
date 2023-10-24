@@ -4,6 +4,7 @@ using ShopNow.Domain.Repositories;
 using ShopNow.Infra.Data;
 using ShopNow.Infra.Data.Repositories.Database;
 using ShopNow.Infra.Migrations;
+using ShopNow.UseCases;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -27,6 +28,9 @@ builder.Services.AddFluentMigratorCore()
 builder.Services.AddScoped<IItemRepository, ItemRepository>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<ICouponRepository, CouponRepository>();
+builder.Services.AddScoped<PlaceOrder>();
+builder.Services.AddScoped<ListOrders>();
+builder.Services.AddScoped<FindOrderByCode>();
 
 var app = builder.Build();
 

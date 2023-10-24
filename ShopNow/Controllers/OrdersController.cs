@@ -10,42 +10,39 @@ namespace ShopNow.Controllers
     [Route("[controller]")]
     public class OrdersController : ControllerBase
     {
-        private readonly IItemRepository _itemRepository;
-        private readonly IOrderRepository _orderRepository;
-        private readonly ICouponRepository _couponRepository;
+        private readonly PlaceOrder _placeOrder;
+        private readonly ListOrders _listOrders;
+        private readonly FindOrderByCode _findOrderByCode;
 
         public OrdersController(
-            IItemRepository itemRepository,
-            IOrderRepository orderRepository,
-            ICouponRepository couponRepository)
+            PlaceOrder placeOrder,
+            ListOrders listOrders,
+            FindOrderByCode findOrderByCode)
         {
-            _itemRepository = itemRepository;
-            _orderRepository = orderRepository;
-            _couponRepository = couponRepository;
+            _placeOrder = placeOrder;
+            _listOrders = listOrders;
+            _findOrderByCode = findOrderByCode;
         }
 
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] PlaceOrderInput placeOrderInput)
         {
-            var createOrder = new PlaceOrder(_itemRepository, _orderRepository, _couponRepository);
-            var order = await createOrder.Execute(placeOrderInput);
+            var order = await _placeOrder.Execute(placeOrderInput);
             return Ok(order);
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Order>>> Get()
         {
-            var listOrders = new ListOrders(_orderRepository);
-            var orders = await listOrders.Execute();
+            var orders = await _listOrders.Execute();
             return Ok(orders);
         }
 
         [HttpGet("{orderCode}")]
         public async Task<IActionResult> GetByCode(string orderCode)
         {
-            var findOrderByCode = new FindOrderByCode(_orderRepository);
             var orderCodeInput = new OrderCodeInput { OrderCode = orderCode };
-            var order = await findOrderByCode.Execute(orderCodeInput);
+            var order = await _findOrderByCode.Execute(orderCodeInput);
             return Ok(order);
         }
     }
