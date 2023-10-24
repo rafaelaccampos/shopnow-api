@@ -31,6 +31,7 @@ builder.Services.AddScoped<ICouponRepository, CouponRepository>();
 builder.Services.AddScoped<PlaceOrder>();
 builder.Services.AddScoped<ListOrders>();
 builder.Services.AddScoped<FindOrderByCode>();
+builder.Services.AddScoped<SimulateFreight>();
 
 var app = builder.Build();
 

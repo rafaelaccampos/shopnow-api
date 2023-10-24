@@ -10,18 +10,21 @@ namespace ShopNow.Controllers
     public class FreightsController : ControllerBase
     {
         private readonly IItemRepository _itemRepository;
+        private readonly SimulateFreight _simulateFreight;
 
-        public FreightsController(IItemRepository itemRepository)
+        public FreightsController(
+            IItemRepository itemRepository, 
+            SimulateFreight simulateFreight)
         {
             _itemRepository = itemRepository;
+            _simulateFreight = simulateFreight;
+
         }
 
         [HttpPost]
         public async Task<IActionResult> Post(SimulateFreightInput simulateFreightInput)
         {
-            var simulateFreight = new SimulateFreight(_itemRepository);
-            var freight = await simulateFreight.Execute(simulateFreightInput);
-
+            var freight = await _simulateFreight.Execute(simulateFreightInput);
             return Ok(freight);
         }
     }
