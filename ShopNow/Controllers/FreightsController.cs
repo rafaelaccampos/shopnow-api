@@ -9,16 +9,12 @@ namespace ShopNow.Controllers
     [Route("[controller]")]
     public class FreightsController : ControllerBase
     {
-        private readonly IItemRepository _itemRepository;
         private readonly SimulateFreight _simulateFreight;
 
         public FreightsController(
-            IItemRepository itemRepository, 
             SimulateFreight simulateFreight)
         {
-            _itemRepository = itemRepository;
             _simulateFreight = simulateFreight;
-
         }
 
         [HttpPost]
