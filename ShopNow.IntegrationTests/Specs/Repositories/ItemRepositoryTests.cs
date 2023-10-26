@@ -19,7 +19,7 @@ namespace ShopNow.IntegrationTests.Specs.Repositories
 
             var itemOfDatabase = await itemRepository.FindByIdAsync(item.Id);
 
-            item.Should().BeEquivalentTo(itemOfDatabase);
+            itemOfDatabase.Should().BeEquivalentTo(item);
         }
     }
 }

@@ -44,7 +44,7 @@ namespace ShopNow.IntegrationTests.Specs.Repositories
 
             var orderInDatabase = await findOrderByCode.Execute(orderCodeInput);
 
-            orders.First().Should().BeEquivalentTo(orderInDatabase, 
+            orderInDatabase.Should().BeEquivalentTo(orders.First(), 
                 options => options.Excluding(o => o.Cpf)
                 .For(o => o.OrderItems)
                 .Exclude(o => o.Order));

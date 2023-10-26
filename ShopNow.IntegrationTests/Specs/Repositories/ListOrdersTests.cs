@@ -42,7 +42,7 @@ namespace ShopNow.IntegrationTests.Specs.Repositories
             using(new AssertionScope())
             {
                 ordersInDatabase.Should().HaveCount(2);
-                orders.Should().BeEquivalentTo(ordersInDatabase, options
+                ordersInDatabase.Should().BeEquivalentTo(orders, options
                     => options.Excluding(o => o.Cpf)
                     .For(o => o.OrderItems)
                     .Exclude(o => o.Order));

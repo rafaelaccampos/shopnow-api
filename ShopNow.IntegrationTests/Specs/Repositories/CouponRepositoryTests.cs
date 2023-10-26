@@ -20,7 +20,7 @@ namespace ShopNow.IntegrationTests.Specs.Repositories
             var couponRepository = GetService<ICouponRepository>();
             var couponInDatabase = await couponRepository.FindByCode(coupon.Code);
 
-            coupon.Should().BeEquivalentTo(couponInDatabase, options => options
+            couponInDatabase.Should().BeEquivalentTo(coupon, options => options
             .ExcludingMissingMembers()
             .Excluding(x => x.ActualDate)
             .Excluding(x => x.Discount));

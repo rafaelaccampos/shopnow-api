@@ -33,7 +33,7 @@ namespace ShopNow.IntegrationTests.Specs.Repositories
             var orderRepository = GetService<IOrderRepository>();
             var orderInDatabase = await orderRepository.FindByCode("202300000001");
 
-            order.Should().BeEquivalentTo(orderInDatabase, options
+            orderInDatabase.Should().BeEquivalentTo(order, options
                 => options.Excluding(o => o.Cpf)
                 .For(o => o.OrderItems)
                 .Exclude(o => o.Order));
@@ -65,7 +65,7 @@ namespace ShopNow.IntegrationTests.Specs.Repositories
             var orderRepository = GetService<IOrderRepository>();
             var ordersInDatabase = await orderRepository.FindAllOrders();
 
-            orders.Should().BeEquivalentTo(ordersInDatabase, options => options.Excluding(o => o.Cpf));
+            ordersInDatabase.Should().BeEquivalentTo(orders, options => options.Excluding(o => o.Cpf));
         }
 
         [Test]
@@ -93,8 +93,8 @@ namespace ShopNow.IntegrationTests.Specs.Repositories
 
             using (new AssertionScope())
             {
-                order.Should().BeEquivalentTo(orderInDatabase);
-                order.OrderItems.Should().Contain(orderInDatabase!.OrderItems);
+                orderInDatabase.Should().BeEquivalentTo(order);
+                orderInDatabase!.OrderItems.Should().Contain(order.OrderItems);
             }
         }
     }
