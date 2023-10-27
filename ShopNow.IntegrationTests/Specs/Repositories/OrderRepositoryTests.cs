@@ -1,6 +1,7 @@
 ﻿using Bogus.Extensions.Brazil;
 using FluentAssertions;
 using FluentAssertions.Execution;
+using Microsoft.EntityFrameworkCore;
 using ShopNow.Domain.Entities;
 using ShopNow.Domain.Repositories;
 using ShopNow.IntegrationTests.Setup;
@@ -76,25 +77,31 @@ namespace ShopNow.IntegrationTests.Specs.Repositories
             await _context.SaveChangesAsync();
 
             var coupon = new Coupon("VALE20", 20);
-            _context.Coupons.Add(coupon);
-            await _context.SaveChangesAsync();
-
             var cpf = Faker.Person.Cpf(false);
             var issueDate = new DateTime(2023, 09, 28);
+            
             var order = new Order(cpf, issueDate, 1);
-
             order.AddItem(item, 2);
             order.AddCoupon(coupon);
 
-            _context.Orders.AddRange(order);
-            await _context.SaveChangesAsync();
+            var orderRepository = GetService<IOrderRepository>();
+            await orderRepository.Save(order);
 
-            var orderInDatabase = _context.Orders.FirstOrDefault();
+            var orderInDatabase = await _context
+                .Orders
+                .Include(o => o.Coupon)
+                .Include(o => o.OrderItems)
+                .ThenInclude(o => o.Item)
+                .FirstOrDefaultAsync();
 
             using (new AssertionScope())
             {
-                orderInDatabase.Should().BeEquivalentTo(order);
-                orderInDatabase!.OrderItems.Should().Contain(order.OrderItems);
+                orderInDatabase.Should().BeEquivalentTo(order, 
+                    options => options
+                    .For(o => o.OrderItems)
+                    .Exclude(o => o.Order)
+                    .For(o => o.OrderItems)
+                    .Exclude(o => o.Item));
             }
         }
     }
