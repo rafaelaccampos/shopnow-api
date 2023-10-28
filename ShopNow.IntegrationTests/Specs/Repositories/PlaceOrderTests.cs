@@ -2,7 +2,6 @@
 using FluentAssertions;
 using FluentAssertions.Execution;
 using ShopNow.Domain.Entities;
-using ShopNow.Domain.Repositories;
 using ShopNow.Dtos;
 using ShopNow.IntegrationTests.Setup;
 using ShopNow.UseCases;
@@ -48,11 +47,7 @@ namespace ShopNow.IntegrationTests.Specs.Repositories
             _context.Items.AddRange(items);
            await _context.SaveChangesAsync();
 
-            var itemRepository = GetService<IItemRepository>();
-            var orderRepository = GetService<IOrderRepository>();
-            var couponRepository = GetService<ICouponRepository>();
-
-            var placeOrder = new PlaceOrder(itemRepository, orderRepository, couponRepository);
+            var placeOrder = GetService<PlaceOrder>();
             var output = await placeOrder.Execute(placeOrderInput);
 
             using (new AssertionScope())
@@ -102,11 +97,7 @@ namespace ShopNow.IntegrationTests.Specs.Repositories
             _context.Coupons.Add(coupon);
             await _context.SaveChangesAsync();
 
-            var itemRepository = GetService<IItemRepository>();
-            var orderRepository = GetService<IOrderRepository>();
-            var couponRepository = GetService<ICouponRepository>();
-            
-            var placeOrder = new PlaceOrder(itemRepository, orderRepository, couponRepository);
+            var placeOrder = GetService<PlaceOrder>();
             var output = await placeOrder.Execute(placeOrderInput);
 
             using (new AssertionScope())

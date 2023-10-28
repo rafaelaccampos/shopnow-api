@@ -1,6 +1,5 @@
 ﻿using FluentAssertions;
 using ShopNow.Domain.Entities;
-using ShopNow.Domain.Repositories;
 using ShopNow.Dtos;
 using ShopNow.IntegrationTests.Setup;
 using ShopNow.UseCases;
@@ -43,10 +42,8 @@ namespace ShopNow.IntegrationTests.Specs.Repositories
                     }
                 }
             };
-
-            var itemRepository = GetService<IItemRepository>();
             
-            var simulateFreight = new SimulateFreight(itemRepository);
+            var simulateFreight = GetService<SimulateFreight>();
             var output = await simulateFreight.Execute(simulateFreightInput);
 
             output.Should().Be(280);

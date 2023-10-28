@@ -2,7 +2,6 @@
 using FluentAssertions;
 using FluentAssertions.Execution;
 using ShopNow.Domain.Entities;
-using ShopNow.Domain.Repositories;
 using ShopNow.IntegrationTests.Setup;
 using ShopNow.UseCases;
 
@@ -34,9 +33,7 @@ namespace ShopNow.IntegrationTests.Specs.Repositories
             _context.Orders.AddRange(orders);
             await _context.SaveChangesAsync();
 
-            var orderRepository = GetService<IOrderRepository>();
-
-            var listOrders = new ListOrders(orderRepository);
+            var listOrders = GetService<ListOrders>();
             var ordersInDatabase = await listOrders.Execute();
 
             using(new AssertionScope())

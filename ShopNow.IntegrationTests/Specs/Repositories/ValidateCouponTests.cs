@@ -1,6 +1,5 @@
 ﻿using FluentAssertions;
 using ShopNow.Domain.Entities;
-using ShopNow.Domain.Repositories;
 using ShopNow.IntegrationTests.Setup;
 using ShopNow.UseCases;
 
@@ -21,8 +20,7 @@ namespace ShopNow.IntegrationTests.Specs.Repositories
             _context.Coupons.Add(coupon);
             await _context.SaveChangesAsync();
 
-            var couponRepository = GetService<ICouponRepository>();
-            var validateCoupon = new ValidateCoupon(couponRepository);
+            var validateCoupon = GetService<ValidateCoupon>();
             var isValid = await validateCoupon.Execute("VALE20", actualDate);
 
             isValid.Should().BeTrue();
@@ -41,9 +39,7 @@ namespace ShopNow.IntegrationTests.Specs.Repositories
             _context.Coupons.Add(coupon);
             await _context.SaveChangesAsync();
 
-            var couponRepository = GetService<ICouponRepository>();
-
-            var validateCoupon = new ValidateCoupon(couponRepository);
+            var validateCoupon = GetService<ValidateCoupon>();
             var isValid = await validateCoupon.Execute("VALE20", actualDate);
 
             isValid.Should().BeFalse();
@@ -52,9 +48,7 @@ namespace ShopNow.IntegrationTests.Specs.Repositories
         [Test]
         public async Task ShouldBeAbleToInvalidateAnCouponThatNotExists()
         {
-            var couponRepository = GetService<ICouponRepository>();
-
-            var validateCoupon = new ValidateCoupon(couponRepository);
+            var validateCoupon = GetService<ValidateCoupon>();
             var isInvalid = await validateCoupon.Execute("VALE20");
 
             isInvalid.Should().BeFalse();

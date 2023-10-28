@@ -13,7 +13,6 @@ namespace ShopNow.IntegrationTests.Specs.Repositories
             var expiredDate = new DateTime(2023, 10, 09);
             var actualDate = new DateTime(2023, 10, 07);
             var coupon = new Coupon("VALE30", 30, expiredDate, actualDate);
-
             _context.Coupons.Add(coupon);
             await _context.SaveChangesAsync();
 

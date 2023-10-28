@@ -1,7 +1,6 @@
 ﻿using Bogus.Extensions.Brazil;
 using FluentAssertions;
 using ShopNow.Domain.Entities;
-using ShopNow.Domain.Repositories;
 using ShopNow.Dtos;
 using ShopNow.IntegrationTests.Setup;
 using ShopNow.UseCases;
@@ -15,7 +14,6 @@ namespace ShopNow.IntegrationTests.Specs.Repositories
         {
             var cpf = Faker.Person.Cpf(false);
             var item = new Item(1, "Guitarra", "Eletrônicos", 1000, 100, 50, 15, 3);
-
             _context.Items.Add(item);
             await _context.SaveChangesAsync();
 
@@ -33,15 +31,12 @@ namespace ShopNow.IntegrationTests.Specs.Repositories
             _context.Orders.AddRange(orders);
             await _context.SaveChangesAsync();
 
-            var orderRepository = GetService<IOrderRepository>();
-
-            var findOrderByCode = new FindOrderByCode(orderRepository);
-
             var orderCodeInput = new OrderCodeInput
             {
                 OrderCode = "202300000001"
             };
 
+            var findOrderByCode = GetService<FindOrderByCode>();
             var orderInDatabase = await findOrderByCode.Execute(orderCodeInput);
 
             orderInDatabase.Should().BeEquivalentTo(orders.First(), 
