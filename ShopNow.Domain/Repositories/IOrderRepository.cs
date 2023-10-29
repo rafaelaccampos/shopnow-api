@@ -8,6 +8,8 @@ namespace ShopNow.Domain.Repositories
 
         Task<IEnumerable<Order?>> FindAllOrders();
 
+        Task<int> Count();
+
         Task Save(Order order);
     }
 }

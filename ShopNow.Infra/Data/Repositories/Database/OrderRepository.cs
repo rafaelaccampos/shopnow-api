@@ -29,7 +29,14 @@ namespace ShopNow.Infra.Data.Repositories.Database
                 .ThenInclude(c => c.Item)
                 .Include(c => c.Coupon)
                 .ToListAsync();
-        } 
+        }
+        
+
+        public async Task<int> Count()
+        {
+            return await _shopContext.Orders
+                .CountAsync();
+        }
 
         public async Task Save(Order order)
         {

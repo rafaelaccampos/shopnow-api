@@ -21,5 +21,10 @@ namespace ShopNow.Infra.Data.Repositories.Memory
         {
             _orders.Add(order);
         }
+
+        public async Task<int> Count()
+        {
+            return  _orders.Count();
+        }
     }
 }

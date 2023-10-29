@@ -22,7 +22,8 @@ namespace ShopNow.UseCases
 
         public async Task<PlaceOrderOutput> Execute(PlaceOrderInput placeOrderInput)
         {
-            var order = new Order(placeOrderInput.Cpf, placeOrderInput.IssueDate, 1);
+            var sequence = await _orderRepository.Count(); 
+            var order = new Order(placeOrderInput.Cpf, placeOrderInput.IssueDate, ++sequence);
 
             foreach (var orderItem in placeOrderInput.OrderItems)
             {
