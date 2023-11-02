@@ -1,4 +1,4 @@
-﻿namespace ShopNow.Queries
+﻿namespace ShopNow.Infra.Data.Queries
 {
     public class ItemDTO
     {

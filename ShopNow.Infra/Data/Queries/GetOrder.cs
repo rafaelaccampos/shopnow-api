@@ -1,7 +1,7 @@
-﻿using ShopNow.Dtos;
-using ShopNow.Infra.Data;
+﻿using ShopNow.Infra.Data.Dao;
+using ShopNow.Infra.Data.Dtos;
 
-namespace ShopNow.Queries
+namespace ShopNow.Infra.Data.Queries
 {
     public class GetOrder
     {
