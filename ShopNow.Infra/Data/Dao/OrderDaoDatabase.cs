@@ -1,22 +1,48 @@
-﻿using ShopNow.Infra.Data.Queries;
+﻿using Microsoft.EntityFrameworkCore;
+using ShopNow.Infra.Data.Queries;
 
 namespace ShopNow.Infra.Data.Dao
 {
     public class OrderDAODatabase : IOrderDAO
     {
-        public Task<OrderDTO> GetOrder(string code)
+        private readonly ShopContext _shopContext;
+
+        public OrderDAODatabase(ShopContext shopContext)
         {
-            throw new NotImplementedException();
+            _shopContext = shopContext;
         }
 
-        public Task<IList<OrderItemDTO>> GetOrderItems(int idOrder)
+        public async Task<OrderDTO?> GetOrder(string code)
         {
-            throw new NotImplementedException();
+            return await _shopContext.Orders
+                .Include(o => o.OrderItems)
+                .ThenInclude(o => o.Item)
+                .Select(o => new OrderDTO {
+                    Id = o.Id,
+                    Code = o.Code,
+                    Cpf = o.CpfNumber,
+                    OrderItems = o.OrderItems.Select(oi => new OrderItemDTO { Description = oi.Item.Description, Price = oi.Item.Price, Count = oi.Count }).ToList(),
+                    Freight = o.Freight,
+                    Total = o.GetTotal()
+                })
+                .FirstOrDefaultAsync(o => o.Code == code);
         }
 
-        public Task<IList<OrderDTO>> GetOrders()
+        public async Task<IEnumerable<OrderDTO?>> GetOrders()
         {
-            throw new NotImplementedException();
+            return await _shopContext.Orders
+                .Include(o => o.OrderItems)
+                .ThenInclude(o => o.Item)
+                .Select(o => new OrderDTO
+                {
+                    Id = o.Id,
+                    Code = o.Code,
+                    Cpf = o.CpfNumber,
+                    OrderItems = o.OrderItems.Select(oi => new OrderItemDTO { Description = oi.Item.Description, Price = oi.Item.Price, Count = oi.Count }).ToList(),
+                    Freight = o.Freight,
+                    Total = o.GetTotal()
+                })
+                .ToListAsync();
         }
     }
 }

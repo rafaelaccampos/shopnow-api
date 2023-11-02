@@ -7,5 +7,6 @@
         public string Cpf { get; set; }
         public decimal Freight { get; set; }
         public decimal Total { get; set; }
+        public IList<OrderItemDTO> OrderItems { get; set; }
     }
 }
