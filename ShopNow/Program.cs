@@ -2,6 +2,7 @@ using FluentMigrator.Runner;
 using Microsoft.EntityFrameworkCore;
 using ShopNow.Domain.Repositories;
 using ShopNow.Infra.Data;
+using ShopNow.Infra.Data.Dao;
 using ShopNow.Infra.Data.Repositories.Database;
 using ShopNow.Infra.Migrations;
 using ShopNow.UseCases;
@@ -28,6 +29,7 @@ builder.Services.AddFluentMigratorCore()
 builder.Services.AddScoped<IItemRepository, ItemRepository>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<ICouponRepository, CouponRepository>();
+builder.Services.AddScoped<IOrderDAO, OrderDAO>();
 builder.Services.AddScoped<PlaceOrder>();
 builder.Services.AddScoped<ListOrders>();
 builder.Services.AddScoped<FindOrderByCode>();

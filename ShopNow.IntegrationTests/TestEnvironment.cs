@@ -20,7 +20,6 @@ namespace ShopNow.IntegrationTests
                 .Build();
 
                 DatabaseCreator.CreateDatabase(configuration.GetConnectionString("Shops"));
-
                 builder.UseConfiguration(configuration);
             });
         }

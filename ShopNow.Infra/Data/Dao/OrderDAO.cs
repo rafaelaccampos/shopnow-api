@@ -3,11 +3,11 @@ using ShopNow.Infra.Data.Queries;
 
 namespace ShopNow.Infra.Data.Dao
 {
-    public class OrderDAODatabase : IOrderDAO
+    public class OrderDAO : IOrderDAO
     {
         private readonly ShopContext _shopContext;
 
-        public OrderDAODatabase(ShopContext shopContext)
+        public OrderDAO(ShopContext shopContext)
         {
             _shopContext = shopContext;
         }
