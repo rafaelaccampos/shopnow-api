@@ -3,6 +3,7 @@ using FluentAssertions;
 using FluentAssertions.Execution;
 using ShopNow.Domain.Entities;
 using ShopNow.Dtos;
+using ShopNow.Infra.Data.Queries;
 using ShopNow.IntegrationTests.Setup;
 using ShopNow.Tests.Shared.Extensions;
 using System.Net;
@@ -73,7 +74,7 @@ namespace ShopNow.IntegrationTests.Specs.Controllers
         }
 
         [Test]
-        public async Task GetShouldBeAbleToListOrders()
+        public async Task GetShouldBeAbleToGetOrders()
         {
             var item = new Item(1, "Guitarra", "Eletrônicos", 1000, 100, 50, 15, 3);
             _context.Add(item);
@@ -95,12 +96,32 @@ namespace ShopNow.IntegrationTests.Specs.Controllers
 
             var response = await _httpClient.GetAsync(URL_BASE);
             var responseOrderAsJson = await response.Content.ReadAsStringAsync();
-            var expectedOrderAsJson = orders.Serialize();
+            var expectedOrdersAsJson = new List<OrderDTO>
+            {
+                new OrderDTO
+                {
+                    Id = orders.First().Id,
+                    Code = orders.First().Code,
+                    Cpf = orders.First().CpfNumber,
+                    Freight = orders.First().Freight,
+                    OrderItems = orders.First().OrderItems.Select(oi => new OrderItemDTO { Description = oi.Item.Description, Price = oi.Item.Price, Count = oi.Count }).ToList(),
+                    Total = orders.First().GetTotal()
+                },
+                new OrderDTO
+                {
+                    Id = orders.Last().Id,
+                    Code = orders.Last().Code,
+                    Cpf = orders.Last().CpfNumber,
+                    Freight = orders.Last().Freight,
+                    OrderItems = orders.Last().OrderItems.Select(oi => new OrderItemDTO{ Description = oi.Item.Description, Price= oi.Item.Price, Count = oi.Count}).ToList(),
+                    Total = orders.Last().GetTotal()
+                }
+            }.Serialize();
 
             using (new AssertionScope())
             {
                 response.StatusCode.Should().Be(HttpStatusCode.OK);
-                responseOrderAsJson.ShouldBeAnEquivalentJson(expectedOrderAsJson);
+                responseOrderAsJson.ShouldBeAnEquivalentJson(expectedOrdersAsJson);
             }        
         }
 
@@ -125,10 +146,17 @@ namespace ShopNow.IntegrationTests.Specs.Controllers
             _context.AddRange(orders);
             await _context.SaveChangesAsync();
 
-            var firstOrder = orders.First();
-            var response = await _httpClient.GetAsync($"{URL_BASE}/{firstOrder.Code}");
+            var response = await _httpClient.GetAsync($"{URL_BASE}/{orders.First().Code}");
             var responseOrderAsJson = await response.Content.ReadAsStringAsync();
-            var expectedOrderAsJson = firstOrder.Serialize();
+            var expectedOrderAsJson = new OrderDTO
+            {
+                Id = orders.First().Id,
+                Code = orders.First().Code,
+                Cpf = orders.First().CpfNumber,
+                Freight = orders.First().Freight,
+                OrderItems = orders.First().OrderItems.Select(oi => new OrderItemDTO { Description = oi.Item.Description, Price = oi.Item.Price, Count = oi.Count }).ToList(),
+                Total = orders.First().GetTotal()
+            }.Serialize();
 
             using (new AssertionScope())
             {

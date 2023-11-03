@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ShopNow.Domain.Entities;
-using ShopNow.Domain.Repositories;
 using ShopNow.Dtos;
+using ShopNow.Infra.Data.Dao;
 using ShopNow.UseCases;
 
 namespace ShopNow.Controllers
@@ -11,17 +11,14 @@ namespace ShopNow.Controllers
     public class OrdersController : ControllerBase
     {
         private readonly PlaceOrder _placeOrder;
-        private readonly ListOrders _listOrders;
-        private readonly FindOrderByCode _findOrderByCode;
+        private readonly IOrderDAO _orderDao;
 
         public OrdersController(
             PlaceOrder placeOrder,
-            ListOrders listOrders,
-            FindOrderByCode findOrderByCode)
+            IOrderDAO orderDao)
         {
             _placeOrder = placeOrder;
-            _listOrders = listOrders;
-            _findOrderByCode = findOrderByCode;
+            _orderDao = orderDao;
         }
 
         [HttpPost]
@@ -34,15 +31,20 @@ namespace ShopNow.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Order>>> Get()
         {
-            var orders = await _listOrders.Execute();
+            var orders = await _orderDao.GetOrders();
             return Ok(orders);
         }
 
         [HttpGet("{orderCode}")]
         public async Task<IActionResult> GetByCode(string orderCode)
         {
-            var orderCodeInput = new OrderCodeInput { OrderCode = orderCode };
-            var order = await _findOrderByCode.Execute(orderCodeInput);
+            var order = await _orderDao.GetOrder(orderCode);
+
+            if(order == null)
+            {
+                return NotFound();
+            }
+
             return Ok(order);
         }
     }
