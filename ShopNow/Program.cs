@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using ShopNow.Domain.Repositories;
 using ShopNow.Infra.Data;
 using ShopNow.Infra.Data.Dao;
+using ShopNow.Infra.Data.Queries;
 using ShopNow.Infra.Data.Repositories.Database;
 using ShopNow.Infra.Migrations;
 using ShopNow.UseCases;

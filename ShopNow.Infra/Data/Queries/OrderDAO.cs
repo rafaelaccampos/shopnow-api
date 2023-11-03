@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ShopNow.Infra.Data.Queries;
+using ShopNow.Infra.Data.Dao;
 
-namespace ShopNow.Infra.Data.Dao
+namespace ShopNow.Infra.Data.Queries
 {
     public class OrderDAO : IOrderDAO
     {
@@ -17,7 +17,8 @@ namespace ShopNow.Infra.Data.Dao
             return await _shopContext.Orders
                 .Include(o => o.OrderItems)
                 .ThenInclude(o => o.Item)
-                .Select(o => new OrderDTO {
+                .Select(o => new OrderDTO
+                {
                     Id = o.Id,
                     Code = o.Code,
                     Cpf = o.CpfNumber,
