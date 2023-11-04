@@ -164,5 +164,33 @@ namespace ShopNow.IntegrationTests.Specs.Controllers
                 responseOrderAsJson.ShouldBeAnEquivalentJson(expectedOrderAsJson);
             }
         }
+
+        [Test]
+        public async Task GetShouldBeAbleToReturn200AndAnEmptyCollectionWhenGetOrdersDoesNotHaveElements()
+        {
+            var response = await _httpClient.GetAsync(URL_BASE);
+            var responseOrdersAsJson = await response.Content.ReadAsStringAsync();
+            var expectedOrders = new List<OrderDTO>().Serialize();
+
+            using(new AssertionScope())
+            {
+                response.Should().HaveStatusCode(HttpStatusCode.OK);
+                responseOrdersAsJson.Should().BeEquivalentTo(expectedOrders);
+            }
+        }
+
+        [Test]
+        public async Task GetShouldBeAbleToReturn404AndNullWhenGetOrderByCodeIsNull()
+        {
+            const string CODE = "200300001";
+            var response = await _httpClient.GetAsync($"{URL_BASE}/{CODE}");
+            var responseOrderAsJson = await response.Content.ReadAsStringAsync();
+            
+            using(new AssertionScope())
+            {
+                response.Should().HaveStatusCode(HttpStatusCode.NotFound);
+                responseOrderAsJson.Should().BeNullOrEmpty();
+            }
+        }
     }
 }

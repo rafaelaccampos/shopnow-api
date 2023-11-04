@@ -42,7 +42,7 @@ namespace ShopNow.Controllers
 
             if(order == null)
             {
-                return NotFound();
+                return NotFound(order);
             }
 
             return Ok(order);
