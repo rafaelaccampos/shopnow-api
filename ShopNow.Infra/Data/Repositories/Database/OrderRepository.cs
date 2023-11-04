@@ -11,25 +11,7 @@ namespace ShopNow.Infra.Data.Repositories.Database
         public OrderRepository(ShopContext shopContext)
         {
             _shopContext = shopContext;
-        }
-
-        public async Task<Order?> FindByCode(string code)
-        {
-            return await _shopContext.Orders
-                .Include(c => c.OrderItems)
-                .ThenInclude(c => c.Item)
-                .Include(c => c.Coupon)
-                .SingleAsync(c => c.Code == code);
-        }
-
-        public async Task<IEnumerable<Order?>> FindAllOrders()
-        {
-            return await _shopContext.Orders
-                .Include(c => c.OrderItems)
-                .ThenInclude(c => c.Item)
-                .Include(c => c.Coupon)
-                .ToListAsync();
-        }    
+        }   
 
         public async Task<int> Count()
         {

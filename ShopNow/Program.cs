@@ -32,8 +32,6 @@ builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<ICouponRepository, CouponRepository>();
 builder.Services.AddScoped<IOrderDAO, OrderDAO>();
 builder.Services.AddScoped<PlaceOrder>();
-builder.Services.AddScoped<ListOrders>();
-builder.Services.AddScoped<FindOrderByCode>();
 builder.Services.AddScoped<SimulateFreight>();
 builder.Services.AddScoped<ValidateCoupon>();
 
