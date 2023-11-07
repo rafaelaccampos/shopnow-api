@@ -1,4 +1,5 @@
 ﻿
+using ShopNow.Domain.Factory;
 using ShopNow.Domain.Repositories;
 
 namespace ShopNow.UseCases
@@ -7,9 +8,9 @@ namespace ShopNow.UseCases
     {
         private readonly ICouponRepository _couponRepository;
 
-        public ValidateCoupon(ICouponRepository couponRepository)
+        public ValidateCoupon(IAbstractRepositoryFactory abstractRepositoryFactory)
         {
-            _couponRepository = couponRepository;
+            _couponRepository = abstractRepositoryFactory.CreateCouponRepository();
         }
 
         public async Task<bool> Execute(string code, DateTime actualDate = new DateTime())

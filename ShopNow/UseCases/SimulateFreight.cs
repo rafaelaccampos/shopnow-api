@@ -1,4 +1,5 @@
-﻿using ShopNow.Domain.Repositories;
+﻿using ShopNow.Domain.Factory;
+using ShopNow.Domain.Repositories;
 using ShopNow.Dtos;
 
 namespace ShopNow.UseCases
@@ -7,9 +8,9 @@ namespace ShopNow.UseCases
     {
         private readonly IItemRepository _itemRepository;
 
-        public SimulateFreight(IItemRepository itemRepository)
+        public SimulateFreight(IAbstractRepositoryFactory abstractRepositoryFactory)
         {
-            _itemRepository = itemRepository;
+            _itemRepository = abstractRepositoryFactory.CreateItemRepository();
         }
 
         public async Task<decimal> Execute(SimulateFreightInput simulateFreightInput)

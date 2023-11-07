@@ -1,4 +1,5 @@
 ﻿using ShopNow.Domain.Entities;
+using ShopNow.Domain.Factory;
 using ShopNow.Domain.Repositories;
 using ShopNow.Dtos;
 
@@ -10,14 +11,11 @@ namespace ShopNow.UseCases
         private readonly IOrderRepository _orderRepository;
         private readonly ICouponRepository _couponRepository;
 
-        public PlaceOrder(
-            IItemRepository itemRepository, 
-            IOrderRepository orderRepository,
-            ICouponRepository couponRepository)
+        public PlaceOrder(IAbstractRepositoryFactory abstractRepositoryFactory)
         {
-            _itemRepository = itemRepository;
-            _orderRepository = orderRepository;
-            _couponRepository = couponRepository;
+            _itemRepository = abstractRepositoryFactory.CreateItemRepository();
+            _orderRepository = abstractRepositoryFactory.CreateOrderRepository();
+            _couponRepository = abstractRepositoryFactory.CreateCouponRepository();
         }
 
         public async Task<PlaceOrderOutput> Execute(PlaceOrderInput placeOrderInput)
