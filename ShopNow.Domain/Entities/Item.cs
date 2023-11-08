@@ -1,4 +1,6 @@
-﻿namespace ShopNow.Domain.Entities
+﻿using ShopNow.Domain.Services;
+
+namespace ShopNow.Domain.Entities
 {
     public class Item
     {
@@ -33,7 +35,7 @@
 
         public decimal GetVolume()
         {
-            return Width / 100 * Height / 100 * Length / 100;
+            return Width / 100 * Height / 100 * Length / 100; 
         }
 
         public decimal GetDensity()
@@ -43,9 +45,7 @@
 
         public decimal GetFreight()
         {
-            var freight = 1000 * GetVolume() * (GetDensity() / 100);
-
-            return freight < 10 ? 10 : freight;
+            return FreightCalculator.Calculate(this);
         }
     }
 }
