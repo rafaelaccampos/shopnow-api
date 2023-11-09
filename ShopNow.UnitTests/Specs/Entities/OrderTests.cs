@@ -54,22 +54,6 @@ namespace ShopNow.UnitTests.Specs.Entities
         }
 
         [Test]
-        public void ShouldBeAbleToCalculateAnFreightOfAnOrder()
-        {
-            var order = new Order("18731465072");
-
-            order.AddItem(new Item(1, "Guitarra", "Eletrônicos", 1000, 100, 30, 10, 3), 1);
-            order.AddItem(new Item(2,"Amplificador", "Eletrônicos", 5000, 100, 50, 50, 20), 1);
-            order.AddItem(new Item(3, "Cabo", "Eletrônicos", 30, 10, 10, 10, 0.9M), 3);
-
-            var freight = order.Freight;
-
-            freight
-                .Should()
-                .Be(260);
-        }
-
-        [Test]
         public void ShouldBeAbleToGenerateCodeOfOrder()
         {
             var order = new Order("18731465072", new DateTime(2023, 04, 08), 1);

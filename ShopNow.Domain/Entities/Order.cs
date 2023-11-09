@@ -35,8 +35,12 @@
 
         public void AddItem(Item item, int count)
         {
-            Freight += item.GetFreight() * count;
             OrderItems.Add(new OrderItem(item.Id, item.Price, count));
+        }
+
+        public void AddFreight(decimal freight)
+        {
+            Freight = freight;
         }
 
         public void AddCoupon(Coupon coupon)
