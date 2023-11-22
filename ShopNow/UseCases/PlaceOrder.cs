@@ -1,7 +1,6 @@
-﻿using ShopNow.Domain.Entities;
-using ShopNow.Domain.Factory;
-using ShopNow.Domain.Repositories;
-using ShopNow.Domain.Services;
+﻿using ShopNow.Domain.Checkout.Entities;
+using ShopNow.Domain.Checkout.Factory;
+using ShopNow.Domain.Checkout.Repositories;
 using ShopNow.Dtos;
 
 namespace ShopNow.UseCases

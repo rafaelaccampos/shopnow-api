@@ -1,6 +1,6 @@
 ﻿using FluentAssertions;
 using FluentAssertions.Execution;
-using ShopNow.Domain.Entities;
+using ShopNow.Domain.Checkout.Entities;
 using ShopNow.Dtos;
 using ShopNow.IntegrationTests.Setup;
 using ShopNow.Tests.Shared.Extensions;

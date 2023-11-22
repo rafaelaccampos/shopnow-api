@@ -1,6 +1,6 @@
 ﻿
-using ShopNow.Domain.Factory;
-using ShopNow.Domain.Repositories;
+using ShopNow.Domain.Checkout.Factory;
+using ShopNow.Domain.Checkout.Repositories;
 
 namespace ShopNow.UseCases
 {

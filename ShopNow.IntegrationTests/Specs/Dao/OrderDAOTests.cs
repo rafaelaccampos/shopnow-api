@@ -1,8 +1,8 @@
 ﻿using Bogus.Extensions.Brazil;
 using FluentAssertions;
-using ShopNow.Domain.Entities;
-using ShopNow.Infra.Data.Dao;
-using ShopNow.Infra.Data.Queries;
+using ShopNow.Domain.Checkout.Entities;
+using ShopNow.Infra.Checkout.Data.Dao;
+using ShopNow.Infra.Checkout.Data.Queries;
 using ShopNow.IntegrationTests.Setup;
 
 namespace ShopNow.IntegrationTests.Specs.Dao

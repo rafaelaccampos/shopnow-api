@@ -1,5 +1,5 @@
 ﻿using FluentAssertions;
-using ShopNow.Domain.Entities;
+using ShopNow.Domain.Checkout.Entities;
 using ShopNow.IntegrationTests.Setup;
 using ShopNow.UseCases;
 

@@ -3,7 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Respawn;
 using Respawn.Graph;
-using ShopNow.Infra.Data;
+using ShopNow.Infra;
 
 namespace ShopNow.IntegrationTests.Setup
 {

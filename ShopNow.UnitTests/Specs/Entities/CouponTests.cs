@@ -1,5 +1,5 @@
 using FluentAssertions;
-using ShopNow.Domain.Entities;
+using ShopNow.Domain.Checkout.Entities;
 
 namespace ShopNow.UnitTests.Specs.Entities
 {

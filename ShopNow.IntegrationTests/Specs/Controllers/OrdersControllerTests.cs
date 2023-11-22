@@ -1,9 +1,9 @@
 ﻿using Bogus.Extensions.Brazil;
 using FluentAssertions;
 using FluentAssertions.Execution;
-using ShopNow.Domain.Entities;
+using ShopNow.Domain.Checkout.Entities;
 using ShopNow.Dtos;
-using ShopNow.Infra.Data.Queries;
+using ShopNow.Infra.Checkout.Data.Queries;
 using ShopNow.IntegrationTests.Setup;
 using ShopNow.Tests.Shared.Extensions;
 using System.Net;

@@ -1,4 +1,4 @@
-﻿using ShopNow.Domain.Entities;
+﻿using ShopNow.Domain.Checkout.Entities;
 
 namespace ShopNow.Tests.Shared.Builders
 {

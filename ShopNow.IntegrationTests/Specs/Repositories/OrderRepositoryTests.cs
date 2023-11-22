@@ -2,8 +2,8 @@
 using FluentAssertions;
 using FluentAssertions.Execution;
 using Microsoft.EntityFrameworkCore;
-using ShopNow.Domain.Entities;
-using ShopNow.Domain.Repositories;
+using ShopNow.Domain.Checkout.Entities;
+using ShopNow.Domain.Checkout.Repositories;
 using ShopNow.IntegrationTests.Setup;
 
 namespace ShopNow.IntegrationTests.Specs.Repositories

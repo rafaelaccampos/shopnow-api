@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ShopNow.Domain.Entities;
+using ShopNow.Domain.Checkout.Entities;
 using ShopNow.Dtos;
-using ShopNow.Infra.Data.Dao;
+using ShopNow.Infra.Checkout.Data.Dao;
 using ShopNow.UseCases;
 
 namespace ShopNow.Controllers

@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ShopNow.Domain.Repositories;
 using ShopNow.Dtos;
 using ShopNow.UseCases;
 
