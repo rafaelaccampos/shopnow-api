@@ -1,5 +1,6 @@
 using FluentAssertions;
 using ShopNow.Domain.Checkout.Entities;
+using ShopNow.Tests.Shared.Builders;
 
 namespace ShopNow.UnitTests.Specs.Entities
 {
@@ -22,7 +23,13 @@ namespace ShopNow.UnitTests.Specs.Entities
         {
             var expiredDate = new DateTime(2022, 09, 28);
             var actualDate = new DateTime(2022, 09, 18);
-            var coupon = new Coupon("VALE35", 35, expiredDate, actualDate);
+
+            var coupon = new CouponBuilder()
+                .WithCode("VALE35")
+                .WithPercentual(35)
+                .WithExpiredDate(expiredDate)
+                .WithActualDate(actualDate)
+                .Generate();
 
             coupon.AddDiscount(1000);
 
@@ -36,6 +43,7 @@ namespace ShopNow.UnitTests.Specs.Entities
         {
             var expiredDate = DateTime.Now.AddDays(-2);
             var actualDate = DateTime.Now;
+
             var coupon = new Coupon("VALE20", 20, expiredDate, actualDate);
 
             coupon.AddDiscount(1000);
@@ -50,7 +58,13 @@ namespace ShopNow.UnitTests.Specs.Entities
         {
             var expiredDate = new DateTime(2023, 09, 28);
             var actualDate = new DateTime(2023, 09, 27);
-            var coupon = new Coupon("VALE20", 20, expiredDate, actualDate);
+
+            var coupon = new CouponBuilder()
+                .WithCode("VALE20")
+                .WithPercentual(20)
+                .WithExpiredDate(expiredDate)
+                .WithActualDate(actualDate)
+                .Generate();
 
             coupon.IsValid(actualDate).Should().BeTrue();
         }
@@ -60,22 +74,38 @@ namespace ShopNow.UnitTests.Specs.Entities
         {
             var expiredDate = new DateTime(2023, 09, 28);
             var actualDate = DateTime.Now;
-            var coupon = new Coupon("VALE20", 20, expiredDate, actualDate);
+
+            var coupon = new CouponBuilder()
+                .WithCode("VALE20")
+                .WithPercentual(20)
+                .WithExpiredDate(expiredDate)
+                .WithActualDate(actualDate)
+                .Generate();
 
             coupon.IsValid(actualDate).Should().BeFalse();
         }
 
         [Test]
         public void ShouldBeAbleToVerifyIfCouponIsValidWithoutActualDateWhenExpiredDateHasNotExpired()
-        {
-            var coupon = new Coupon("VALE20", 20, DateTime.Now.AddDays(1));
+        { 
+            var coupon = new CouponBuilder()
+                .WithCode("VALE20")
+                .WithPercentual(20)
+                .WithExpiredDate(DateTime.Now.AddDays(1))
+                .Generate();
+
             coupon.IsValid().Should().BeTrue();
         }
 
         [Test]
         public void ShouldBeAbleToVerifyIfCouponIsValidWithoutActualDateWhenExpiredDateIsExpired()
         {
-            var coupon = new Coupon("VALE20", 20, DateTime.Now.AddDays(-1));
+            var coupon = new CouponBuilder()
+                .WithCode("VALE20")
+                .WithPercentual(20)
+                .WithExpiredDate(DateTime.Now.AddDays(-1))
+                .Generate();
+
             coupon.IsValid().Should().BeFalse();
         }
 
@@ -84,7 +114,14 @@ namespace ShopNow.UnitTests.Specs.Entities
         {
             var expiredDate = new DateTime(2023, 09, 28, 14, 30, 00);
             var actualDate = new DateTime(2023, 09, 28, 14, 30, 00);
-            var coupon = new Coupon("VALE20", 20, expiredDate, actualDate);
+
+            var coupon = new CouponBuilder()
+                .WithCode("VALE20")
+                .WithPercentual(20)
+                .WithExpiredDate(expiredDate)
+                .WithActualDate(actualDate)
+                .Generate();
+
             coupon.IsValid(actualDate).Should().BeTrue();
         }
     }
