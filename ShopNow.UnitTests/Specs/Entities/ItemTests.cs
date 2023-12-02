@@ -1,5 +1,6 @@
 ﻿using FluentAssertions;
 using ShopNow.Domain.Checkout.Entities;
+using ShopNow.Tests.Shared.Builders;
 
 namespace ShopNow.UnitTests.Specs.Entities
 {
@@ -8,14 +9,29 @@ namespace ShopNow.UnitTests.Specs.Entities
         [Test]
         public void ShouldBeAbleToCreateAnItem()
         {
-            var item = new Item(1, "Guitarra", "Eletrônicos", 1000);
+            var item = new ItemBuilder()
+                .WithId(1)
+                .WithDescription("Guitarra")
+                .WithCategory("Eletrônicos")
+                .WithPrice(1000)
+                .Generate();
+
             item.Id.Should().Be(1);
         }
 
         [Test]
         public void ShouldBeAbleToCalculateTheVolumeOfAnItem()
         {
-            var item = new Item(1, "Guitarra", "Eletrônicos", 1000, 100, 30, 10);
+            var item = new ItemBuilder()
+                .WithId(1)
+                .WithDescription("Guitarra")
+                .WithCategory("Eletrônicos")
+                .WithPrice(1000)
+                .WithWidth(100)
+                .WithHeight(30)
+                .WithLength(10)
+                .Generate();
+
             var volume = item.GetVolume();
 
             volume.Should().Be(0.03M);
@@ -24,7 +40,17 @@ namespace ShopNow.UnitTests.Specs.Entities
         [Test]
         public void ShouldBeAbleToCalculateTheDensityOfAnItem()
         {
-            var item = new Item(1,"Guitarra", "Eletrônicos", 1000, 100, 30, 10, 3);
+            var item = new ItemBuilder()
+                .WithId(1)
+                .WithDescription("Guitarra")
+                .WithCategory("Eletrônicos")
+                .WithPrice(1000)
+                .WithWidth(100)
+                .WithHeight(30)
+                .WithLength(10)
+                .WithWeight(3)
+                .Generate();
+
             var density = item.GetDensity();
 
             density.Should().Be(100);
@@ -33,7 +59,17 @@ namespace ShopNow.UnitTests.Specs.Entities
         [Test]
         public void ShouldBeAbleToCalculateTheMinimumFreightOfAnItem()
         {
-            var item = new Item(1, "Cabo", "Eletrônicos", 30, 10, 10, 10, 0.9M);
+            var item = new ItemBuilder()
+                .WithId(1)
+                .WithDescription("Cabo")
+                .WithCategory("Eletrônicos")
+                .WithPrice(30)
+                .WithWidth(10)
+                .WithHeight(10)
+                .WithLength(10)
+                .WithWeight(0.9M)
+                .Generate();
+
             var freight = item.GetFreight();
 
             freight.Should().Be(10);
@@ -42,7 +78,17 @@ namespace ShopNow.UnitTests.Specs.Entities
         [Test]
         public void ShouldBeAbleToCalculateTheFreightOfAnItem()
         {
-            var item = new Item(1, "Guitarra", "Eletrônicos", 1000, 100, 30, 10, 3);
+            var item = new ItemBuilder()
+                .WithId(1)
+                .WithDescription("Guitarra")
+                .WithCategory("Eletrônicos")
+                .WithPrice(1000)
+                .WithWidth(100)
+                .WithHeight(30)
+                .WithLength(10)
+                .WithWeight(3)
+                .Generate();
+
             var freight = item.GetFreight();
 
             freight.Should().Be(30);

@@ -47,7 +47,12 @@ namespace ShopNow.UnitTests.Specs.Entities
             var expiredDate = DateTime.Now.AddDays(-2);
             var actualDate = DateTime.Now;
 
-            var coupon = new Coupon("VALE20", 20, expiredDate, actualDate);
+            var coupon = new CouponBuilder()
+                .WithCode("VALE20")
+                .WithPercentual(20)
+                .WithExpiredDate(expiredDate)
+                .WithActualDate(actualDate).
+                Generate();
 
             coupon.AddDiscount(1000);
 

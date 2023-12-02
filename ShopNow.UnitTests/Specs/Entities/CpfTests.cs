@@ -5,14 +5,19 @@ namespace ShopNow.UnitTests.Specs.Entities
 {
     public class CpfTests
     {
+        private Cpf _cpf;
+
+        [SetUp]
+        public void Setup()
+        {
+            _cpf = new Cpf();
+        }
 
         [TestCase("")]
         [TestCase(null)]
         public void ShouldBeAbleToValidateAnInvalidCpfWith(string invalidCpf)
         {
-            var cpf = new Cpf();
-
-            var validatedCpf = cpf.Validate(invalidCpf);
+            var validatedCpf = _cpf.Validate(invalidCpf);
 
             validatedCpf.Should().BeFalse();
         }
@@ -20,10 +25,9 @@ namespace ShopNow.UnitTests.Specs.Entities
         [Test]
         public void ShouldBeAbleToValidateAnInvalidCpfWithRepeatedNumbers()
         {
-            var cpf = new Cpf();
             const string invalidCpf = "111.111.111-11";
 
-            var validatedCpf = cpf.Validate(invalidCpf);
+            var validatedCpf = _cpf.Validate(invalidCpf);
 
             validatedCpf.Should().BeFalse();
         }
@@ -33,9 +37,7 @@ namespace ShopNow.UnitTests.Specs.Entities
         [TestCase("111.444.777-26")]
         public void ShouldBeAbleToValidateAnInvalidCpfWithLastDigitsInvalid(string invalidCpf)
         {
-            var cpf = new Cpf();
-
-            var validatedCpf = cpf.Validate(invalidCpf);
+            var validatedCpf = _cpf.Validate(invalidCpf);
 
             validatedCpf.Should().BeFalse();
         }
@@ -47,9 +49,7 @@ namespace ShopNow.UnitTests.Specs.Entities
         [TestCase("bat.123.999-bat")]
         public void ShouldBeAbleToValidateAnInvalidCpfThatHasLetters(string invalidCpf)
         {
-            var cpf = new Cpf();
-
-            var validatedCpf = cpf.Validate(invalidCpf);
+            var validatedCpf = _cpf.Validate(invalidCpf);
 
             validatedCpf.Should().BeFalse();
         }
@@ -58,9 +58,7 @@ namespace ShopNow.UnitTests.Specs.Entities
         [TestCase("1114447773")]
         public void ShouldBeAbleToValidateAnInvalidCpfThatHasInvalidLength(string invalidCpf)
         {
-            var cpf = new Cpf();
-
-            var validatedCpf = cpf.Validate(invalidCpf);
+            var validatedCpf = _cpf.Validate(invalidCpf);
 
             validatedCpf.Should().BeFalse();
         }
@@ -69,9 +67,7 @@ namespace ShopNow.UnitTests.Specs.Entities
         [TestCase("93541134780")]
         public void ShouldBeAbleToValidateAnValidCpf(string validCpf)
         {
-            var cpf = new Cpf();
-
-            var validatedCpf = cpf.Validate(validCpf);
+            var validatedCpf = _cpf.Validate(validCpf);
 
             validatedCpf.Should().BeTrue();
         }
