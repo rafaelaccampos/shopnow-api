@@ -8,8 +8,9 @@ namespace ShopNow.Tests.Shared.Builders
         {
             RuleFor(c => c.Code, f => f.Random.String2(50));
             RuleFor(c => c.Percentual, f => f.Random.Decimal(18, 2));
-            RuleFor(c => c.ExpiredDate, f => f.Date.Recent());
+            RuleFor(c => c.ExpiredDate, f => f.Date.Future());
             RuleFor(c => c.ActualDate, f => f.Date.Recent());
+            Ignore(c => c.Discount);
         }
 
         public CouponBuilder WithCode(string code)

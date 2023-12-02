@@ -9,7 +9,10 @@ namespace ShopNow.UnitTests.Specs.Entities
         [Test]
         public void ShouldBeAbleToCalculateDiscountWithoutExpiredDate()
         {
-            var coupon = new Coupon("VALE35", 35);
+            var coupon = new CouponBuilder()
+                .WithCode("VALE35")
+                .WithPercentual(35)
+                .Generate();
 
             coupon.AddDiscount(1000);
 
