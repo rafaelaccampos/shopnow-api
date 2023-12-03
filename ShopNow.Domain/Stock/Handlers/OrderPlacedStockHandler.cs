@@ -1,5 +1,6 @@
 ﻿using ShopNow.Domain.Shared.Event;
 using ShopNow.Domain.Shared.Handler;
+using ShopNow.Domain.Stock.Entities;
 using ShopNow.Domain.Stock.Repositories;
 
 namespace ShopNow.Domain.Stock.Handlers
@@ -13,8 +14,15 @@ namespace ShopNow.Domain.Stock.Handlers
             _stockRepository = stockRepository;
         }
 
-        public Task Notify(IDomainEvent domainEvent)
+        public async Task Notify(IDomainEvent domainEvent)
         {
+            var orderPlaced = (OrderPlaced)domainEvent;
+
+            foreach(var orderItem in orderPlaced.Items)
+            {
+                var stockEntry = new StockEntry(orderItem.Id, "in", orderItem.Count);
+                await _stockRepository.Save(stockEntry);
+            }
         }
     }
 }
