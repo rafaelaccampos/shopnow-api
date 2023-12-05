@@ -19,6 +19,12 @@ namespace ShopNow.Infra.Checkout.Data.Repositories.Database
                 .CountAsync();
         }
 
+        public async Task<Order?> Get(string code)
+        {
+            return await _shopContext.Orders
+                .FirstOrDefaultAsync(o => o.Code == code);
+        }
+
         public async Task Save(Order order)
         {
             _shopContext.Orders.Add(order);

@@ -6,6 +6,8 @@ namespace ShopNow.Domain.Checkout.Repositories
     {
         Task<int> Count();
 
+        Task<Order?> Get(string code);
+
         Task Save(Order order);
     }
 }

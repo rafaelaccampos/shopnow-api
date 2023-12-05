@@ -30,6 +30,9 @@ namespace ShopNow.Infra.Checkout.Data.Mappers
                 .HasColumnName("freight")
                  .HasPrecision(18, 2);
             builder
+                .Property(x => x.Status)
+                .HasColumnName("status");
+            builder
                 .Property(x => x.Sequence)
                 .HasColumnName("sequence");
             builder

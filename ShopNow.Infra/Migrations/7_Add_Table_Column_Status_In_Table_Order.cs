@@ -1,5 +1,4 @@
 ﻿using FluentMigrator;
-using Microsoft.EntityFrameworkCore.Migrations.Operations;
 
 namespace ShopNow.Infra.Migrations
 {
@@ -8,7 +7,7 @@ namespace ShopNow.Infra.Migrations
         public override void Up()
         {
             Alter.Table("tb_order")
-                .AddColumn("status").AsString(2);
+                .AddColumn("status").AsString(20).Nullable();
         }
 
         public override void Down()

@@ -8,6 +8,7 @@ using ShopNow.Infra.Checkout.Data.Factories;
 using ShopNow.Infra.Checkout.Data.Queries;
 using ShopNow.Infra.Checkout.Data.Repositories.Database;
 using ShopNow.Infra.Migrations;
+using ShopNow.Infra.Shared.Event;
 using ShopNow.UseCases;
 using System.Text.Json.Serialization;
 
@@ -37,6 +38,7 @@ builder.Services.AddScoped<IAbstractRepositoryFactory, DatabaseRepositoryFactory
 builder.Services.AddScoped<PlaceOrder>();
 builder.Services.AddScoped<SimulateFreight>();
 builder.Services.AddScoped<ValidateCoupon>();
+builder.Services.AddScoped<EventBus>();
 
 var app = builder.Build();
 

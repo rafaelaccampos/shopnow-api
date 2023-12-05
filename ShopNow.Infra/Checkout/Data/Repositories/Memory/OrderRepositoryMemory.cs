@@ -7,24 +7,20 @@ namespace ShopNow.Infra.Checkout.Data.Repositories.Memory
     {
         private readonly IList<Order> _orders = new List<Order>();
 
-        public Task<IEnumerable<Order?>> FindAllOrders()
+        public async Task<int> Count()
         {
-            throw new NotImplementedException();
+            return _orders.Count();
         }
 
-        public Task<Order?> FindByCode(string code)
+        public Task<Order?> Get(string code)
         {
-            throw new NotImplementedException();
+            var order = _orders.FirstOrDefault(o => o.Code == code);
+            return Task.FromResult(order);
         }
 
         public async Task Save(Order order)
         {
             _orders.Add(order);
-        }
-
-        public async Task<int> Count()
-        {
-            return _orders.Count();
         }
     }
 }
