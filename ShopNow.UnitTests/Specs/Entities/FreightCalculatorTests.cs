@@ -10,7 +10,16 @@ namespace ShopNow.UnitTests.Specs.Entities
         [Test]
         public void ShouldBeAbleToCalculateFreightWhenFreightIsLessThanTen()
         {
-            var item = new Item(1, "Guitarra", "Eletrônicos", 1000, 100, 30, 10);
+            var item = new ItemBuilder()
+                .WithId(1)
+                .WithDescription("Guitarra")
+                .WithCategory("Eletrônicos")
+                .WithPrice(1000)
+                .WithWidth(100)
+                .WithHeight(30)
+                .WithLength(10)
+                .WithWeight(0)
+                .Generate();
 
             var freight = FreightCalculator.Calculate(item);
 
