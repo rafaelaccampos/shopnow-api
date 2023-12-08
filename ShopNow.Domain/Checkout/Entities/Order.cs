@@ -39,7 +39,7 @@
         
         public decimal Freight { get; private set; }
         
-        public string Status { get; private set; }
+        public string? Status { get; private set; }
         
         public int Sequence { get; private set; }
         

@@ -2,6 +2,7 @@
 
 namespace ShopNow.Infra.Migrations
 {
+    [Migration(7)]
     public class AddTableColumnStatusInTableOrder : Migration
     {
         public override void Up()
