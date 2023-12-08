@@ -1,5 +1,5 @@
 ﻿using FluentAssertions;
-using ShopNow.Domain.Checkout.Entities;
+using ShopNow.Tests.Shared.Builders;
 
 namespace ShopNow.UnitTests.Specs.Entities
 {
@@ -9,8 +9,13 @@ namespace ShopNow.UnitTests.Specs.Entities
         public void ShouldBeAbleToGenerateOrderCode()
         {
             const int SEQUENCE = 1;
+            var createdDate = new DateTime(2023, 04, 09);
 
-            var orderCode = new OrderCode(SEQUENCE, new DateTime(2023, 04, 09));
+            var orderCode = new OrderCodeBuilder()
+                .WithSequence(SEQUENCE)
+                .WithDate(createdDate)
+                .Generate();
+                       
             var orderCodeGenerated = orderCode.GenerateCode();
 
             orderCodeGenerated.Should().Be("202300000001");
