@@ -64,6 +64,10 @@
 
             Coupon = coupon;
         }
+        public void Cancel()
+        {
+            Status = "Cancelled";
+        }
 
         public decimal GetTotal()
         {
@@ -82,6 +86,5 @@
 
             return total;
         }
-
     }
 }

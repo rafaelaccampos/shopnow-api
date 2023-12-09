@@ -8,6 +8,8 @@ namespace ShopNow.Domain.Checkout.Repositories
 
         Task<Order?> Get(string code);
 
+        Task Update(Order? order);
+
         Task Save(Order order);
     }
 }

@@ -41,6 +41,7 @@ namespace ShopNow.Infra.Checkout.Data.Queries
                     Cpf = o.CpfNumber,
                     OrderItems = o.OrderItems.Select(oi => new OrderItemDTO { Description = oi.Item.Description, Price = oi.Item.Price, Count = oi.Count }).ToList(),
                     Freight = o.Freight,
+                    Status = o.Status,
                     Total = o.GetTotal()
                 })
                 .ToListAsync();

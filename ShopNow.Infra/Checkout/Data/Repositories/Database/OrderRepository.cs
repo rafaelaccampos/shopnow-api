@@ -25,6 +25,15 @@ namespace ShopNow.Infra.Checkout.Data.Repositories.Database
                 .FirstOrDefaultAsync(o => o.Code == code);
         }
 
+        public async Task Update(Order? order)
+        {
+            if (order != null)
+            {
+                _shopContext.Orders.Update(order);
+                await _shopContext.SaveChangesAsync();
+            }
+        }
+
         public async Task Save(Order order)
         {
             _shopContext.Orders.Add(order);

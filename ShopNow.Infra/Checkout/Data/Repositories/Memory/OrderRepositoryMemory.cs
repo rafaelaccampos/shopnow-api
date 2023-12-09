@@ -18,6 +18,11 @@ namespace ShopNow.Infra.Checkout.Data.Repositories.Memory
             return Task.FromResult(order);
         }
 
+        public Task Update(Order? order)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task Save(Order order)
         {
             _orders.Add(order);
