@@ -68,6 +68,27 @@ namespace ShopNow.IntegrationTests.Specs.Repositories
         }
 
         [Test]
+        public async Task ShouldBeAbleToUpdateOrder()
+        {
+            var item = new Item(1, "Guitarra", "Eletrônicos", 1000, 100, 30, 10);
+            _context.Items.Add(item);
+            await _context.SaveChangesAsync();
+
+            var order = new Order(_cpf, _issueDate, 1);
+            _context.Add(order);
+            await _context.SaveChangesAsync();
+
+            var orderRepository = GetService<IOrderRepository>();
+            order.Cancel();
+            await orderRepository.Update(order);
+
+            var orderUpdated = await orderRepository
+                .Get(order.Code);
+
+            orderUpdated!.Status.Should().Be("Cancelled");
+        }
+
+        [Test]
         public async Task ShouldBeAbleToSaveOrder()
         {
             var item = new Item(1, "Guitarra", "Eletrônicos", 1000, 100, 30, 10);
