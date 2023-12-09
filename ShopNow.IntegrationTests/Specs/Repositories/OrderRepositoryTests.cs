@@ -21,6 +21,53 @@ namespace ShopNow.IntegrationTests.Specs.Repositories
         }
 
         [Test]
+        public async Task ShouldBeAbleToGetTheCountOfOrdersThatHasInDatabase()
+        {
+            var item = new Item(1, "Guitarra", "Eletrônicos", 1000, 100, 30, 10);
+            _context.Items.Add(item);
+            await _context.SaveChangesAsync();
+
+            var orders = new List<Order>
+            {
+                new Order(_cpf, _issueDate, 1),
+                new Order(_cpf, _issueDate, 2)
+            };
+
+            orders.ForEach(order => order.AddItem(item, 1));
+            _context.AddRange(orders);
+            await _context.SaveChangesAsync();
+
+            var orderRepository = GetService<IOrderRepository>();
+            var count = await orderRepository.Count();
+
+            count.Should().Be(2);
+        }
+
+        [Test]
+        public async Task ShouldBeAbleToGetOrderByCode()
+        {
+            const string CODE = "202300000002";
+            var item = new Item(1, "Guitarra", "Eletrônicos", 1000, 100, 30, 10);
+            _context.Items.Add(item);
+            await _context.SaveChangesAsync();
+
+            var orders = new List<Order>
+            {
+                new Order(_cpf, _issueDate, 1),
+                new Order(_cpf, _issueDate, 2)
+            };
+
+            orders.ForEach(order => order.AddItem(item, 1));
+            _context.AddRange(orders);
+            await _context.SaveChangesAsync();
+
+            var orderRepository = GetService<IOrderRepository>();
+            var order = await orderRepository.Get(CODE);
+
+            order!.Code.Should().Be("202300000002");
+        }
+
+        [Test]
         public async Task ShouldBeAbleToSaveOrder()
         {
             var item = new Item(1, "Guitarra", "Eletrônicos", 1000, 100, 30, 10);
@@ -52,29 +99,6 @@ namespace ShopNow.IntegrationTests.Specs.Repositories
                     .For(o => o.OrderItems)
                     .Exclude(o => o.Item));
             }
-        }
-
-        [Test]
-        public async Task ShouldBeAbleToGetTheCountOfOrdersThatHasInDatabase()
-        {
-            var item = new Item(1, "Guitarra", "Eletrônicos", 1000, 100, 30, 10);
-            _context.Items.Add(item);
-            await _context.SaveChangesAsync();
-
-            var orders = new List<Order>
-            {
-                new Order(_cpf, _issueDate, 1),
-                new Order(_cpf, _issueDate, 2)
-            };
-
-            orders.ForEach(order => order.AddItem(item, 1));
-            _context.AddRange(orders);
-            await _context.SaveChangesAsync();
-
-            var orderRepository = GetService<IOrderRepository>();
-            var count = await orderRepository.Count();
-
-            count.Should().Be(2);
         }
     }
 }
