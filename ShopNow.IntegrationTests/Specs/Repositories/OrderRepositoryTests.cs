@@ -10,6 +10,16 @@ namespace ShopNow.IntegrationTests.Specs.Repositories
 {
     public class OrderRepositoryTests : DatabaseBase
     {
+        private string _cpf;
+        private DateTime _issueDate;
+
+        [SetUp]
+        public void SetUp()
+        {
+            _cpf = Faker.Person.Cpf(false);
+            _issueDate = new DateTime(2023, 09, 28);
+        }
+
         [Test]
         public async Task ShouldBeAbleToSaveOrder()
         {
@@ -18,10 +28,8 @@ namespace ShopNow.IntegrationTests.Specs.Repositories
             await _context.SaveChangesAsync();
 
             var coupon = new Coupon("VALE20", 20);
-            var cpf = Faker.Person.Cpf(false);
-            var issueDate = new DateTime(2023, 09, 28);
             
-            var order = new Order(cpf, issueDate, 1);
+            var order = new Order(_cpf, _issueDate, 1);
             order.AddItem(item, 2);
             order.AddCoupon(coupon);
 
@@ -49,17 +57,14 @@ namespace ShopNow.IntegrationTests.Specs.Repositories
         [Test]
         public async Task ShouldBeAbleToGetTheCountOfOrdersThatHasInDatabase()
         {
-            var cpf = Faker.Person.Cpf(false);
-            var issueDate = DateTime.Now;
-
             var item = new Item(1, "Guitarra", "Eletrônicos", 1000, 100, 30, 10);
             _context.Items.Add(item);
             await _context.SaveChangesAsync();
 
             var orders = new List<Order>
             {
-                new Order(cpf, issueDate, 1),
-                new Order(cpf, issueDate, 2)
+                new Order(_cpf, _issueDate, 1),
+                new Order(_cpf, _issueDate, 2)
             };
 
             orders.ForEach(order => order.AddItem(item, 1));
