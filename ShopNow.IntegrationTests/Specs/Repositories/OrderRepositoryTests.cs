@@ -45,5 +45,31 @@ namespace ShopNow.IntegrationTests.Specs.Repositories
                     .Exclude(o => o.Item));
             }
         }
+
+        [Test]
+        public async Task ShouldBeAbleToGetTheCountOfOrdersThatHasInDatabase()
+        {
+            var cpf = Faker.Person.Cpf(false);
+            var issueDate = DateTime.Now;
+
+            var item = new Item(1, "Guitarra", "Eletrônicos", 1000, 100, 30, 10);
+            _context.Items.Add(item);
+            await _context.SaveChangesAsync();
+
+            var orders = new List<Order>
+            {
+                new Order(cpf, issueDate, 1),
+                new Order(cpf, issueDate, 2)
+            };
+
+            orders.ForEach(order => order.AddItem(item, 1));
+            _context.AddRange(orders);
+            await _context.SaveChangesAsync();
+
+            var orderRepository = GetService<IOrderRepository>();
+            var count = await orderRepository.Count();
+
+            count.Should().Be(2);
+        }
     }
 }
