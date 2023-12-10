@@ -14,6 +14,7 @@
             IssueDate = issueDate;
             Freight = 0;
             Sequence = sequence;
+            Status = "Pending";
 
             if (!Cpf.Validate(rawCpf))
             {
@@ -64,6 +65,7 @@
 
             Coupon = coupon;
         }
+
         public void Cancel()
         {
             Status = "Cancelled";

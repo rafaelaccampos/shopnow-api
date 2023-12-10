@@ -84,6 +84,7 @@ namespace ShopNow.IntegrationTests.Specs.Dao
                     Cpf = cpf,
                     Code = orders.First().Code,
                     Freight = orders.First().Freight,
+                    Status = orders.First().Status,
                     OrderItems = orders.First().OrderItems.Select(oi => new OrderItemDTO { Description = oi.Item.Description, Price = oi.Item.Price, Count = oi.Count }).ToList(),
                     Total = orders.First().GetTotal()
                 },
@@ -93,6 +94,7 @@ namespace ShopNow.IntegrationTests.Specs.Dao
                     Cpf = cpf,
                     Code = orders.Last().Code,
                     Freight = orders.Last().Freight,
+                    Status = orders.Last().Status,
                     OrderItems = orders.Last().OrderItems.Select(oi => new OrderItemDTO { Description = oi.Item.Description, Price = oi.Item.Price, Count = oi.Count }).ToList(),
                     Total = orders.Last().GetTotal()
                 },

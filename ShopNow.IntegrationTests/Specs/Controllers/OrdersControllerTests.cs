@@ -104,6 +104,7 @@ namespace ShopNow.IntegrationTests.Specs.Controllers
                     Code = orders.First().Code,
                     Cpf = orders.First().CpfNumber,
                     Freight = orders.First().Freight,
+                    Status = orders.First().Status,
                     OrderItems = orders.First().OrderItems.Select(oi => new OrderItemDTO { Description = oi.Item.Description, Price = oi.Item.Price, Count = oi.Count }).ToList(),
                     Total = orders.First().GetTotal()
                 },
@@ -113,6 +114,7 @@ namespace ShopNow.IntegrationTests.Specs.Controllers
                     Code = orders.Last().Code,
                     Cpf = orders.Last().CpfNumber,
                     Freight = orders.Last().Freight,
+                    Status = orders.Last().Status,
                     OrderItems = orders.Last().OrderItems.Select(oi => new OrderItemDTO{ Description = oi.Item.Description, Price= oi.Item.Price, Count = oi.Count}).ToList(),
                     Total = orders.Last().GetTotal()
                 }

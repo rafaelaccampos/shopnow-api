@@ -69,5 +69,26 @@ namespace ShopNow.UnitTests.Specs.Entities
                 .Be("202300000001");
         }
 
+        [Test]
+        public void ShouldBeAbleToChangeStatusForPendingWhenOrderIsCreated()
+        {
+            var order = new Order("18731465072", new DateTime(2023, 04, 08), 1);
+
+            order.Status
+                .Should()
+                .Be("Pending");
+        }
+
+        [Test]
+        public void ShouldBeAbleToChangeOrderStatusForCancelledWhenOrderIsCancelled()
+        {
+            var order = new Order("18731465072", new DateTime(2023, 04, 08), 1);
+
+            order.Cancel();
+
+            order.Status
+                .Should()
+                .Be("Cancelled");
+        }
     }
 }
