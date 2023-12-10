@@ -68,6 +68,16 @@ namespace ShopNow.IntegrationTests.Specs.Repositories
         }
 
         [Test]
+        public async Task ShouldBeAbleToReturnNullWhenOrderIsNotFound()
+        {
+            const string CODE = "202300000002";
+            var orderRepository = GetService<IOrderRepository>();
+            var order = await orderRepository.Get(CODE);
+
+            order.Should().BeNull();
+        }
+
+        [Test]
         public async Task ShouldBeAbleToUpdateOrder()
         {
             var item = new Item(1, "Guitarra", "Eletrônicos", 1000, 100, 30, 10);
