@@ -99,6 +99,18 @@ namespace ShopNow.IntegrationTests.Specs.Repositories
         }
 
         [Test]
+        public async Task ShouldNotBeAbleToUpdateAnOrderThatNotExists()
+        {
+            var order = new Order(_cpf, _issueDate, 1);
+            var orderRepository = GetService<IOrderRepository>();
+            await orderRepository.Update(null);
+
+            var orderUpdated = await orderRepository.Get(order.Code);
+
+            orderUpdated.Should().BeNull();
+        }
+
+        [Test]
         public async Task ShouldBeAbleToSaveOrder()
         {
             var item = new Item(1, "Guitarra", "Eletrônicos", 1000, 100, 30, 10);
