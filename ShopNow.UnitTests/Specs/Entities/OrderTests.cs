@@ -1,10 +1,21 @@
-﻿using FluentAssertions;
+﻿using Bogus;
+using Bogus.Extensions.Brazil;
+using FluentAssertions;
 using ShopNow.Domain.Checkout.Entities;
+using ShopNow.UnitTests.Setup;
 
 namespace ShopNow.UnitTests.Specs.Entities
 {
-    public class OrderTests
+    public class OrderTests : BaseTest
     {
+        private string _cpf;
+
+        [SetUp]
+        public void SetUp() 
+        {
+            _cpf = Faker.Person.Cpf(false);
+        }
+
         [Test]
         public void ShouldNotBeAbleToMakeAnOrderWithInvalidCpf()
         {
@@ -18,7 +29,7 @@ namespace ShopNow.UnitTests.Specs.Entities
         [Test]
         public void ShouldBeAbleToMakeAnOrderWithValidCpf()
         {
-            var act = () => new Order("18731465072");
+            var act = () => new Order(_cpf);
 
             act.Should()
                .NotThrow<InvalidOperationException>();
@@ -27,7 +38,7 @@ namespace ShopNow.UnitTests.Specs.Entities
         [Test]
         public void ShouldBeAbleToMakeAnOrderWithDescriptionPriceAndCount()
         {
-            var order = new Order("18731465072");
+            var order = new Order(_cpf);
 
             order.AddItem(new Item(1, "Smartphone", "Eletrônicos", 1000.00M, 10, 10, 10, 0.9M), 2);
             order.AddItem(new Item(2,"Table", "Móveis", 400.00M, 10, 10, 10, 0.9M), 2);
@@ -41,7 +52,7 @@ namespace ShopNow.UnitTests.Specs.Entities
         public void ShouldBeAbleToApplyDiscountInAnOrder()
         {
             var coupon = new Coupon("VALE20", 20);
-            var order = new Order("18731465072");
+            var order = new Order(_cpf);
 
             order.AddItem(new Item(1, "Guitarra", "Eletrônicos", 1000, 100, 30, 10, 3), 1);
             order.AddItem(new Item(2,"Amplificador", "Eletrônicos", 5000, 100, 50, 50, 20), 1);
@@ -56,7 +67,7 @@ namespace ShopNow.UnitTests.Specs.Entities
         [Test]
         public void ShouldBeAbleToGenerateCodeOfOrder()
         {
-            var order = new Order("18731465072", new DateTime(2023, 04, 08), 1);
+            var order = new Order(_cpf, new DateTime(2023, 04, 08), 1);
 
             order.AddItem(new Item(1, "Guitarra", "Eletrônicos", 1000, 100, 30, 10, 3), 1);
             order.AddItem(new Item(2, "Amplificador", "Eletrônicos", 5000, 100, 50, 50, 20), 1);
@@ -72,7 +83,7 @@ namespace ShopNow.UnitTests.Specs.Entities
         [Test]
         public void ShouldBeAbleToChangeStatusForPendingWhenOrderIsCreated()
         {
-            var order = new Order("18731465072", new DateTime(2023, 04, 08), 1);
+            var order = new Order(_cpf, new DateTime(2023, 04, 08), 1);
 
             order.Status
                 .Should()
@@ -82,7 +93,7 @@ namespace ShopNow.UnitTests.Specs.Entities
         [Test]
         public void ShouldBeAbleToChangeOrderStatusForCancelledWhenOrderIsCancelled()
         {
-            var order = new Order("18731465072", new DateTime(2023, 04, 08), 1);
+            var order = new Order(_cpf, new DateTime(2023, 04, 08), 1);
 
             order.Cancel();
 
