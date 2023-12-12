@@ -36,6 +36,7 @@ builder.Services.AddScoped<ICouponRepository, CouponRepository>();
 builder.Services.AddScoped<IOrderDAO, OrderDAO>();
 builder.Services.AddScoped<IAbstractRepositoryFactory, DatabaseRepositoryFactory>();
 builder.Services.AddScoped<PlaceOrder>();
+builder.Services.AddScoped<CancelOrder>();
 builder.Services.AddScoped<SimulateFreight>();
 builder.Services.AddScoped<ValidateCoupon>();
 builder.Services.AddScoped<EventBus>();
