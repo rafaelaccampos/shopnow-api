@@ -2,6 +2,7 @@
 using Bogus.Extensions.Brazil;
 using FluentAssertions;
 using ShopNow.Domain.Checkout.Entities;
+using ShopNow.Tests.Shared.Builders;
 using ShopNow.UnitTests.Setup;
 
 namespace ShopNow.UnitTests.Specs.Entities
@@ -51,7 +52,11 @@ namespace ShopNow.UnitTests.Specs.Entities
         [Test]
         public void ShouldBeAbleToApplyDiscountInAnOrder()
         {
-            var coupon = new Coupon("VALE20", 20);
+            var coupon = new CouponBuilder()
+                .WithCode("VALE20")
+                .WithPercentual(20)
+                .Generate();
+
             var order = new Order(_cpf);
 
             order.AddItem(new Item(1, "Guitarra", "Eletrônicos", 1000, 100, 30, 10, 3), 1);
