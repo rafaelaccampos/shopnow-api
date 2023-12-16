@@ -1,10 +1,7 @@
 ﻿using Bogus.Extensions.Brazil;
 using FluentAssertions;
-using Microsoft.EntityFrameworkCore;
 using ShopNow.Domain.Checkout.Entities;
 using ShopNow.Domain.Checkout.Repositories;
-using ShopNow.Infra;
-using ShopNow.Infra.Checkout.Data.Repositories.Database;
 using ShopNow.IntegrationTests.Setup;
 using ShopNow.UseCases;
 
@@ -30,8 +27,14 @@ namespace ShopNow.IntegrationTests.Specs.Repositories
             await cancelOrder.Execute(order.Code);
 
             var orderRepository = GetService<IOrderRepository>();
-            var orderCanceled = await orderRepository.Get(order.Code);
-            orderCanceled!.Status.Should().Be("Cancelled");
+            var orderCancelled = await orderRepository.Get(order.Code);
+            orderCancelled!.Status.Should().Be("Cancelled");
+        }
+
+        [Test]
+        public async Task ShouldBeAbleToVerifyIfEventIsPublished()
+        {
+
         }
     }
 }
