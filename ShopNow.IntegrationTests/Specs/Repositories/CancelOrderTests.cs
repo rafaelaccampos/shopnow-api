@@ -30,11 +30,5 @@ namespace ShopNow.IntegrationTests.Specs.Repositories
             var orderCancelled = await orderRepository.Get(order.Code);
             orderCancelled!.Status.Should().Be("Cancelled");
         }
-
-        [Test]
-        public async Task ShouldBeAbleToVerifyIfEventIsPublished()
-        {
-
-        }
     }
 }

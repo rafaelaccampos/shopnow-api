@@ -16,7 +16,7 @@ namespace ShopNow.Infra.Shared.Event
             Consumers.Add(consumer);
         }
 
-        public async Task Publish(IDomainEvent domainEvent)
+        public async virtual Task Publish(IDomainEvent domainEvent)
         {
             foreach (var consumer in Consumers)
             {
