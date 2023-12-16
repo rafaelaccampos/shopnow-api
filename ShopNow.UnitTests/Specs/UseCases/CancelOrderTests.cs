@@ -27,7 +27,7 @@ namespace ShopNow.UnitTests.Specs.UseCases
         }
 
         [Test]
-        public async Task ShouldBeAbleToCallEventOrderCancelledWhenCancelAnOrder()
+        public async Task ShouldBeAbleToReceiveCallingsToUpdateOrderAndForEventCancelOrderWhenOrderIsCancelled()
         {
             var cpf = Faker.Person.Cpf(false);
             var issueDate = DateTime.Now;
