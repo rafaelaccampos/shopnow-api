@@ -1,7 +1,6 @@
 ﻿using Bogus.Extensions.Brazil;
 using FluentAssertions.Execution;
 using NSubstitute;
-using ShopNow.Controllers;
 using ShopNow.Domain.Checkout.Entities;
 using ShopNow.Domain.Checkout.Factory;
 using ShopNow.Domain.Checkout.Repositories;
