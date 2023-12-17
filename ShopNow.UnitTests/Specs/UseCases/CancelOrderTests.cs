@@ -1,6 +1,7 @@
 ﻿using Bogus.Extensions.Brazil;
 using FluentAssertions.Execution;
 using NSubstitute;
+using NSubstitute.ReturnsExtensions;
 using ShopNow.Domain.Checkout.Entities;
 using ShopNow.Domain.Checkout.Factory;
 using ShopNow.Domain.Checkout.Repositories;
@@ -63,6 +64,25 @@ namespace ShopNow.UnitTests.Specs.UseCases
                 await _eventBus.Received(1)
                     .Publish(Arg.Is<OrderCancelled>(
                         o => o.Code == order.Code && o.Items.SequenceEqual(orderItems)));
+            }
+        }
+
+        [Test]
+        public async Task ShouldNotBeAbleToReceiveCallingsWhenOrderDoesNotExists()
+        {
+            var code = Faker.Random.String2(20);
+            _abstractRepositoryFactory.CreateOrderRepository().Returns(_orderRepository);
+            _orderRepository.Get(code).ReturnsNull();
+
+            var cancelOrder = new CancelOrder(_abstractRepositoryFactory, _eventBus);
+            await cancelOrder.Execute(code);
+
+            using (new AssertionScope())
+            {
+                await _orderRepository.DidNotReceive().Update(null);
+                await _eventBus.DidNotReceive()
+                    .Publish(Arg.Is<OrderCancelled>(
+                        o => o.Code == code && o.Items.SequenceEqual(null!)));
             }
         }
     }
