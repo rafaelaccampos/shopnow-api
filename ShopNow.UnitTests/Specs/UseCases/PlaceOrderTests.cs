@@ -8,6 +8,7 @@ using ShopNow.Domain.Checkout.Repositories;
 using ShopNow.Domain.Shared.Event;
 using ShopNow.Dtos;
 using ShopNow.Infra.Shared.Event;
+using ShopNow.Tests.Shared.Builders;
 using ShopNow.UnitTests.Setup;
 using ShopNow.UseCases;
 
@@ -52,9 +53,22 @@ namespace ShopNow.UnitTests.Specs.UseCases
                 IssueDate = DateTime.Now,
                 Coupon = "VALE20"
             };
+            var item = new ItemBuilder()
+                .WithId(1)
+                .WithDescription("Guitarra")
+                .WithCategory("Eletrônicos")
+                .WithPrice(1000)
+                .WithWidth(100)
+                .WithHeight(10)
+                .WithLength(15)
+                .WithWeight(3)
+                .Generate();
 
-            var item = new Item(1, "Guitarra", "Eletrônicos", 1000, 100, 10, 15, 3);
-            var coupon = new Coupon("VALE20", 20);
+            var coupon = new CouponBuilder()
+                .WithCode("VALE20")
+                .WithPercentual(20)
+                .Generate();
+
             var order = new Order(placeOrderInput.Cpf, placeOrderInput.IssueDate);
             order.AddItem(item, 1);
 
@@ -63,7 +77,6 @@ namespace ShopNow.UnitTests.Specs.UseCases
             _couponRepository.FindByCode(placeOrderInput.Coupon).Returns(coupon);
             await _orderRepository.Save(order);
 
-            //Act
             var placeOrder = new PlaceOrder(_abstractRepositoryFactory, _eventBus);
             var placeOrderOutput = await placeOrder.Execute(placeOrderInput);
 
@@ -74,7 +87,6 @@ namespace ShopNow.UnitTests.Specs.UseCases
                     Count = placeOrderInput.OrderItems.First().Count,
                 }).ToList();
 
-            //Assert
             using (new AssertionScope())
             {
                 await _orderRepository.Received(1).Save(order);
