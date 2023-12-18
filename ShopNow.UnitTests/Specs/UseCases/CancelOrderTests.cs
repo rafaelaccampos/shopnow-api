@@ -58,7 +58,7 @@ namespace ShopNow.UnitTests.Specs.UseCases
             var cancelOrder = new CancelOrder(_abstractRepositoryFactory, _eventBus);
             await cancelOrder.Execute(order.Code);
 
-            using(new AssertionScope())
+            using (new AssertionScope())
             {
                 await _orderRepository.Received(1).Update(order);
                 await _eventBus.Received(1)
