@@ -25,6 +25,7 @@ namespace ShopNow.UnitTests.Specs.UseCases
             _abstractRepositoryFactory = Substitute.For<IAbstractRepositoryFactory>();
             _eventBus = Substitute.For<EventBus>();
             _orderRepository = Substitute.For<IOrderRepository>();
+            _abstractRepositoryFactory.CreateOrderRepository().Returns(_orderRepository);
         }
 
         [Test]
@@ -52,7 +53,6 @@ namespace ShopNow.UnitTests.Specs.UseCases
                     Id = o.IdItem, 
                     Count = o.Count
                 });
-            _abstractRepositoryFactory.CreateOrderRepository().Returns(_orderRepository);
             _orderRepository.Get(order.Code).Returns(order);
 
             var cancelOrder = new CancelOrder(_abstractRepositoryFactory, _eventBus);
@@ -71,7 +71,6 @@ namespace ShopNow.UnitTests.Specs.UseCases
         public async Task ShouldNotBeAbleToReceiveCallingsWhenOrderDoesNotExists()
         {
             var code = Faker.Random.String2(20);
-            _abstractRepositoryFactory.CreateOrderRepository().Returns(_orderRepository);
             _orderRepository.Get(code).ReturnsNull();
 
             var cancelOrder = new CancelOrder(_abstractRepositoryFactory, _eventBus);
