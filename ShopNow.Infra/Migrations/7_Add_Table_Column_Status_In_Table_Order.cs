@@ -13,7 +13,8 @@ namespace ShopNow.Infra.Migrations
 
         public override void Down()
         {
-            Delete.Column("status");
+            Delete.Column("status")
+                .FromTable("tb_order");
         }
     }
 }
