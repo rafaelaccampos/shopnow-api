@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ShopNow.Domain.Checkout.Entities;
+using ShopNow.Domain.Stock.Entities;
 
 namespace ShopNow.Infra
 {
@@ -19,5 +20,6 @@ namespace ShopNow.Infra
         public DbSet<Item> Items { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Coupon> Coupons { get; set; }
+        public DbSet<StockEntry> Stocks { get; set; }
     }
 }
