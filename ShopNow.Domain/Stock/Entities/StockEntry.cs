@@ -1,4 +1,6 @@
-﻿namespace ShopNow.Domain.Stock.Entities
+﻿using ShopNow.Domain.Checkout.Entities;
+
+namespace ShopNow.Domain.Stock.Entities
 {
     public class StockEntry
     {
@@ -9,10 +11,16 @@
             Count = count;
         }
 
+        public int Id { get; private set; }
+
         public int IdItem { get; private set; }
+
+        public Item Item { get; private set; }
 
         public string Operation { get; private set; }
 
         public int Count { get; private set; }
+
+        public DateTime Date { get; set; }
     }
 }

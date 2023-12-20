@@ -2,7 +2,9 @@
 using FluentAssertions;
 using FluentAssertions.Execution;
 using ShopNow.Domain.Checkout.Entities;
+using ShopNow.Domain.Stock.Entities;
 using ShopNow.Dtos;
+using ShopNow.Infra;
 using ShopNow.Infra.Checkout.Data.Queries;
 using ShopNow.IntegrationTests.Setup;
 using ShopNow.Tests.Shared.Extensions;
@@ -66,10 +68,20 @@ namespace ShopNow.IntegrationTests.Specs.Controllers
                 Freight = 280M,
             }.Serialize();
 
+            var stocks = _context.Stocks.ToList();
+
+            var expectedStocks = new List<StockEntry>
+            {
+                new StockEntry(1, "out", 1),
+                new StockEntry(2, "out", 2),
+                new StockEntry(3, "out", 3)
+            };
+
             using (new AssertionScope())
             {
                 response.StatusCode.Should().Be(HttpStatusCode.OK);
                 responseContent.ShouldBeAnEquivalentJson(expectedResponseContent);
+                stocks.Should().BeEquivalentTo(expectedStocks);
             }
         }
 

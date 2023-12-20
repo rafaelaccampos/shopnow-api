@@ -13,8 +13,24 @@ namespace ShopNow.Infra.Stock.Mappers
             builder
                 .HasKey(x => x.Id);
             builder
-                .Property(x => x.Code)
-                .HasColumnName("code");
+                .Property(x => x.Id)
+                .HasColumnName("cd_stock");
+            builder
+                .Property(x => x.IdItem)
+                .HasColumnName("id_item");
+            builder
+                .Property(x => x.Operation)
+                .HasColumnName("operation");
+            builder
+                .Property(x => x.Count)
+                .HasColumnName("count");
+            builder
+                .Property(x => x.Date)
+                .HasColumnName("date");
+            builder
+                .HasOne(x => x.Item)
+                .WithMany()
+                .HasForeignKey(x => x.IdItem);
         }
     }
 }

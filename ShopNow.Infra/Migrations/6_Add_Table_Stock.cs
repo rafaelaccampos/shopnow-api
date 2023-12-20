@@ -11,7 +11,7 @@ namespace ShopNow.Infra.Migrations
                 .WithColumn("cd_stock").AsInt32().Identity().PrimaryKey()
                 .WithColumn("id_item").AsInt32().ForeignKey()
                 .WithColumn("operation").AsString(20).NotNullable()
-                .WithColumn("quantity").AsInt32().NotNullable()
+                .WithColumn("count").AsInt32().NotNullable()
                 .WithColumn("date").AsInt32().NotNullable();
 
             Create.ForeignKey("FK_Stock_Item")
