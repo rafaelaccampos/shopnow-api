@@ -4,7 +4,6 @@ using FluentAssertions.Execution;
 using ShopNow.Domain.Checkout.Entities;
 using ShopNow.Domain.Stock.Entities;
 using ShopNow.Dtos;
-using ShopNow.Infra;
 using ShopNow.Infra.Checkout.Data.Queries;
 using ShopNow.IntegrationTests.Setup;
 using ShopNow.Tests.Shared.Extensions;
