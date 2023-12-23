@@ -3,8 +3,11 @@ using FluentAssertions;
 using FluentAssertions.Execution;
 using ShopNow.Domain.Checkout.Entities;
 using ShopNow.Domain.Stock.Entities;
+using ShopNow.Domain.Stock.Handlers;
 using ShopNow.Dtos;
 using ShopNow.Infra.Checkout.Data.Queries;
+using ShopNow.Infra.Shared.Event;
+using ShopNow.Infra.Stock.Repositories;
 using ShopNow.IntegrationTests.Setup;
 using ShopNow.Tests.Shared.Extensions;
 using System.Net;
@@ -56,6 +59,14 @@ namespace ShopNow.IntegrationTests.Specs.Controllers
                 IssueDate = new DateTime(2023, 09, 28),
                 Coupon = coupon.Code
             };
+
+            var eventBus = new EventBus();
+            var consumer = new Consumer
+            {
+                EventName = "OrderPlaced",
+                Handler = new OrderPlacedStockHandler(new StockRepository(_context))
+            };
+            eventBus.Subscribe(consumer);
 
             var response = await _httpClient.PostAsync(URL_BASE, placeOrderInput.ToJsonContent());
             var responseContent = await response.Content.ReadAsStringAsync();

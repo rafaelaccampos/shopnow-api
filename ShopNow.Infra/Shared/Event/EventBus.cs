@@ -4,21 +4,16 @@ namespace ShopNow.Infra.Shared.Event
 {
     public class EventBus
     {
-        public IList<Consumer> Consumers { get; private set; }
-
-        public EventBus()
-        {
-            Consumers = new List<Consumer>();
-        }
+        private IList<Consumer> _consumers = new List<Consumer>();
 
         public void Subscribe(Consumer consumer)
         {
-            Consumers.Add(consumer);
+            _consumers.Add(consumer);
         }
 
         public async virtual Task Publish(IDomainEvent domainEvent)
         {
-            foreach (var consumer in Consumers)
+            foreach (var consumer in _consumers)
             {
                 if(consumer.EventName == domainEvent.Name) 
                 {
