@@ -39,7 +39,7 @@ builder.Services.AddScoped<PlaceOrder>();
 builder.Services.AddScoped<CancelOrder>();
 builder.Services.AddScoped<SimulateFreight>();
 builder.Services.AddScoped<ValidateCoupon>();
-builder.Services.AddScoped<EventBus>();
+builder.Services.AddSingleton<EventBus>();
 
 var app = builder.Build();
 
