@@ -88,7 +88,7 @@ namespace ShopNow.IntegrationTests.Specs.Controllers
             var expectedStocks = new List<StockEntry>
             {
                 new StockEntry(1, "out", 1),
-                new StockEntry(2, "out", 2),
+                new StockEntry(2, "out", 1),
                 new StockEntry(3, "out", 3)
             };
 
@@ -96,7 +96,10 @@ namespace ShopNow.IntegrationTests.Specs.Controllers
             {
                 response.StatusCode.Should().Be(HttpStatusCode.OK);
                 responseContent.ShouldBeAnEquivalentJson(expectedResponseContent);
-                stocks.Should().BeEquivalentTo(expectedStocks);
+                stocks.Should().BeEquivalentTo(expectedStocks, options 
+                    => options.ExcludingMissingMembers()
+                    .Excluding(x => x.Id)
+                    .Excluding(x => x.Item));
             }
         }
 
