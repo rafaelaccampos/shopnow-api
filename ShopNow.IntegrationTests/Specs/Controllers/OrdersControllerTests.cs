@@ -17,6 +17,19 @@ namespace ShopNow.IntegrationTests.Specs.Controllers
     public class OrdersControllerTests : ApiBase
     {
         private const string URL_BASE = "/orders";
+        private EventBus _eventBus;
+
+        [SetUp]
+        public void SetUp()
+        {
+            _eventBus = GetService<EventBus>();
+            var consumer = new Consumer
+            {
+                EventName = "OrderPlaced",
+                Handler = new OrderPlacedStockHandler(new StockRepository(_context))
+            };
+            _eventBus.Subscribe(consumer);
+        }
 
         [Test]
         public async Task CreateShouldBeAbleToPlaceOrderWithCoupon()
@@ -59,14 +72,6 @@ namespace ShopNow.IntegrationTests.Specs.Controllers
                 IssueDate = new DateTime(2023, 09, 28),
                 Coupon = coupon.Code
             };
-
-            var eventBus = new EventBus();
-            var consumer = new Consumer
-            {
-                EventName = "OrderPlaced",
-                Handler = new OrderPlacedStockHandler(new StockRepository(_context))
-            };
-            eventBus.Subscribe(consumer);
 
             var response = await _httpClient.PostAsync(URL_BASE, placeOrderInput.ToJsonContent());
             var responseContent = await response.Content.ReadAsStringAsync();
