@@ -23,12 +23,6 @@ namespace ShopNow.IntegrationTests.Specs.Controllers
         public void SetUp()
         {
             _eventBus = GetService<EventBus>();
-            var consumer = new Consumer
-            {
-                EventName = "OrderPlaced",
-                Handler = new OrderPlacedStockHandler(new StockRepository(_context))
-            };
-            _eventBus.Subscribe(consumer);
         }
 
         [Test]
@@ -73,6 +67,13 @@ namespace ShopNow.IntegrationTests.Specs.Controllers
                 Coupon = coupon.Code
             };
 
+            var consumer = new Consumer
+            {
+                EventName = "OrderPlaced",
+                Handler = new OrderPlacedStockHandler(new StockRepository(_context))
+            };
+            _eventBus.Subscribe(consumer);
+
             var response = await _httpClient.PostAsync(URL_BASE, placeOrderInput.ToJsonContent());
             var responseContent = await response.Content.ReadAsStringAsync();
             
@@ -84,7 +85,6 @@ namespace ShopNow.IntegrationTests.Specs.Controllers
             }.Serialize();
 
             var stocks = _context.Stocks.ToList();
-
             var expectedStocks = new List<StockEntry>
             {
                 new StockEntry(1, "out", 1),
@@ -101,6 +101,46 @@ namespace ShopNow.IntegrationTests.Specs.Controllers
                     .Excluding(x => x.Id)
                     .Excluding(x => x.Item));
             }
+        }
+
+        [Test]
+        public async Task CancelShouldBeAbleToCancelOrder()
+        {
+            var items = new List<Item>
+            {
+                new Item(1, "Guitarra", "Eletrônicos", 1000, 100, 50, 15, 3),
+                new Item(2, "Amplificador", "Eletrônicos", 5000, 50, 50, 50, 22),
+            };
+            _context.AddRange(items);
+            await _context.SaveChangesAsync();
+
+            var cpf = Faker.Person.Cpf(false);
+            var issueDate = DateTime.Now;
+            var order = new Order(cpf, issueDate);
+            var orderCode = order.Code;
+            order.AddItem(items.First(), 1);
+            order.AddItem(items.Last(), 2);
+            order.Cancel();
+            _context.Add(order);
+            await _context.SaveChangesAsync();
+
+            var consumer = new Consumer
+            {
+                EventName = "OrderCancelled",
+                Handler = new OrderCancelledStockHandler(new StockRepository(_context))
+            };
+            _eventBus.Subscribe(consumer);
+
+            await _httpClient.PutAsync(URL_BASE, orderCode.ToJsonContent());
+
+            var stocks = _context.Stocks.ToList();
+            var expectedStocks = new List<StockEntry>()
+            {
+                new StockEntry(items.First().Id, "in", 1),
+                new StockEntry(items.Last().Id, "in", 2)
+            };
+
+            stocks.Should().BeEquivalentTo(expectedStocks);
         }
 
         [Test]

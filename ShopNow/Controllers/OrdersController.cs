@@ -11,13 +11,16 @@ namespace ShopNow.Controllers
     public class OrdersController : ControllerBase
     {
         private readonly PlaceOrder _placeOrder;
+        private readonly CancelOrder _cancelOrder;
         private readonly IOrderDAO _orderDao;
 
         public OrdersController(
             PlaceOrder placeOrder,
+            CancelOrder cancelOrder,
             IOrderDAO orderDao)
         {
             _placeOrder = placeOrder;
+            _cancelOrder = cancelOrder;
             _orderDao = orderDao;
         }
 
@@ -46,6 +49,12 @@ namespace ShopNow.Controllers
             }
 
             return Ok(order);
+        }
+
+        [HttpPut("{orderCode}")]
+        public async Task Cancel(string orderCode)
+        {
+            await _cancelOrder.Execute(orderCode);
         }
     }
 }
