@@ -51,8 +51,8 @@ namespace ShopNow.Controllers
             return Ok(order);
         }
 
-        [HttpPut("{orderCode}")]
-        public async Task Cancel(string orderCode)
+        [HttpPut]
+        public async Task Cancel([FromBody] string orderCode)
         {
             await _cancelOrder.Execute(orderCode);
         }
