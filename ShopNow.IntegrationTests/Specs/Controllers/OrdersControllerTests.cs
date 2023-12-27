@@ -120,7 +120,6 @@ namespace ShopNow.IntegrationTests.Specs.Controllers
             var orderCode = order.Code;
             order.AddItem(items.First(), 1);
             order.AddItem(items.Last(), 2);
-            order.Cancel();
             _context.Add(order);
             await _context.SaveChangesAsync();
 
@@ -140,7 +139,10 @@ namespace ShopNow.IntegrationTests.Specs.Controllers
                 new StockEntry(items.Last().Id, "in", 2)
             };
 
-            stocks.Should().BeEquivalentTo(expectedStocks);
+            stocks.Should().BeEquivalentTo(expectedStocks, 
+                options => options.ExcludingMissingMembers()
+            .Excluding(o => o.Id)
+            .Excluding(o => o.Item));
         }
 
         [Test]

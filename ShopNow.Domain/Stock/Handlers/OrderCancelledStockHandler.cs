@@ -20,7 +20,7 @@ namespace ShopNow.Domain.Stock.Handlers
 
             foreach(var orderItem in orderCancelled.Items)
             {
-                var stockEntry = new StockEntry(orderItem.Id, "out", orderItem.Count);
+                var stockEntry = new StockEntry(orderItem.Id, "in", orderItem.Count);
                 await _stockRepository.Save(stockEntry);
             }
         }

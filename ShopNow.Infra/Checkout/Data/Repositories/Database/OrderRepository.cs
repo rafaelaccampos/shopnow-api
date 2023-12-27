@@ -22,6 +22,8 @@ namespace ShopNow.Infra.Checkout.Data.Repositories.Database
         public async Task<Order?> Get(string code)
         {
             return await _shopContext.Orders
+                .Include(o => o.OrderItems)
+                .Include(o => o.Coupon)
                 .FirstOrDefaultAsync(o => o.Code == code);
         }
 
