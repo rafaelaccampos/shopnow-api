@@ -5,7 +5,7 @@ using ShopNow.Domain.Checkout.Repositories;
 using ShopNow.IntegrationTests.Setup;
 using ShopNow.UseCases;
 
-namespace ShopNow.IntegrationTests.Specs.Repositories
+namespace ShopNow.IntegrationTests.Specs.UseCases
 {
     public class CancelOrderTests : DatabaseBase
     {

@@ -3,7 +3,7 @@ using ShopNow.Domain.Checkout.Entities;
 using ShopNow.IntegrationTests.Setup;
 using ShopNow.UseCases;
 
-namespace ShopNow.IntegrationTests.Specs.Repositories
+namespace ShopNow.IntegrationTests.Specs.UseCases
 {
     public class ValidateCouponTests : DatabaseBase
     {
@@ -12,9 +12,9 @@ namespace ShopNow.IntegrationTests.Specs.Repositories
         {
             var actualDate = new DateTime(2023, 09, 27);
             var coupon = new Coupon(
-                "VALE20", 
-                20, 
-                new DateTime(2023, 09, 28), 
+                "VALE20",
+                20,
+                new DateTime(2023, 09, 28),
                 actualDate);
 
             _context.Coupons.Add(coupon);
