@@ -2,13 +2,21 @@
   <h1>ShopNow Api</h1>
 </p>
 
+## 💻 Projeto
+  ShopNow é um projeto de sistema de vendas online baseado no curso Clean Code e Clean Architecture do Rodrigo. 
+  Neste projeto é possível realizar o pedido com múltiplos itens, cancelamento de pedido, cálculo de frete e interação com o estoque.  
 ## 🧪 Tecnologias
 
 Esse projeto foi desenvolvido com as seguintes tecnologias:
 
 - [.NET 6 WebApi](https://learn.microsoft.com/pt-br/dotnet/core/whats-new/dotnet-6)
+- [Entity Framework](https://learn.microsoft.com/pt-br/ef/)
+- [NUnit](https://nunit.org/)
 - [Fluent Migrator](https://fluentmigrator.github.io/)
 - [Fluent Assertions](https://fluentassertions.com/)
+- [NSubstitute](https://nsubstitute.github.io/)
+- [AutoBogus](https://github.com/nickdodd79/AutoBogus)
+- [Respawn](https://github.com/jbogard/Respawn)
 
 ## Como usar?
 
@@ -39,7 +47,5 @@ Para iniciar o testes, siga os passos abaixo:
 # Para rodar os testes
 $ dotnet test
 ```
-
-## 💻 Projeto
 
 Feito com 💜 by Rafaela Cassiano Campos 👋🏻
