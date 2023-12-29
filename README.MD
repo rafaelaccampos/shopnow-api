@@ -3,8 +3,10 @@
 </p>
 
 ## 💻 Projeto
-  ShopNow é um projeto de sistema de vendas online baseado no curso Clean Code e Clean Architecture do Rodrigo. 
+
+  ShopNow é uma API de sistema de vendas online baseado no curso Clean Code e Clean Architecture do Rodrigo Branas. 
   Neste projeto é possível realizar o pedido com múltiplos itens, cancelamento de pedido, cálculo de frete e interação com o estoque.  
+
 ## 🧪 Tecnologias
 
 Esse projeto foi desenvolvido com as seguintes tecnologias:
