@@ -26,7 +26,7 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
   SDKs e ferramentas podem ser baixadas em .Net Core: https://dot.net/core.
   Você também pode executar no Visual Studio Code (Windows, Linux ou MacOS).
 
-## 🚀 Como executar
+## 🚀 Como executar?
 
 Clone o projeto e acesse a pasta do mesmo.
 
