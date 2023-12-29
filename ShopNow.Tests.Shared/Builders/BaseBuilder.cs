@@ -10,9 +10,9 @@ namespace ShopNow.Tests.Shared.Builders
             Actions = new List<Action<T>>();
         }
 
-        protected IList<Action<T>> Actions { get; set; }
+        protected new IList<Action<T>> Actions { get; set; }
 
-        public override T Generate(string ruleSets = null)
+        public override T Generate(string ruleSets = null!)
         {
             var obj = base.Generate(ruleSets);
             foreach (var action in Actions)
@@ -23,7 +23,7 @@ namespace ShopNow.Tests.Shared.Builders
             return obj;
         }
 
-        public override void Populate(T instance, string ruleSets = null)
+        public override void Populate(T instance, string ruleSets = null!)
         {
             base.Populate(instance, ruleSets);
 

@@ -15,7 +15,7 @@ namespace ShopNow.Domain.Stock.Entities
 
         public int IdItem { get; private set; }
 
-        public Item Item { get; private set; }
+        public Item Item { get; private set; } = null!;
 
         public string Operation { get; private set; }
 

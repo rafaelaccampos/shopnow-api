@@ -4,20 +4,16 @@ namespace ShopNow.Dtos
 {
     public class PlaceOrderOutput
     {
-        public PlaceOrderOutput()
-        {
-            
-        }
         public PlaceOrderOutput(Order order)
         {
             Total = order.GetTotal();
             OrderCode = order.Code;
             Freight = order.Freight;
         }
-        public decimal Total { get; set; }
+        public decimal? Total { get; set; }
 
-        public string OrderCode { get; set; }
+        public string? OrderCode { get; set; }
 
-        public decimal Freight { get; set; }
+        public decimal? Freight { get; set; }
     }
 }

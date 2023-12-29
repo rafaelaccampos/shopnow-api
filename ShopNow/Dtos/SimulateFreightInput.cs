@@ -2,6 +2,6 @@
 {
     public class SimulateFreightInput
     {
-        public ICollection<OrderItemInput> OrderItems { get; set; }
+        public ICollection<OrderItemInput> OrderItems { get; set; } = null!;
     }
 }

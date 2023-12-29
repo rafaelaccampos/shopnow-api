@@ -76,8 +76,8 @@ namespace ShopNow.IntegrationTests.Specs.Controllers
 
             var response = await _httpClient.PostAsync(URL_BASE, placeOrderInput.ToJsonContent());
             var responseContent = await response.Content.ReadAsStringAsync();
-            
-            var expectedResponseContent = new PlaceOrderOutput
+
+            var expectedResponseContent = new
             { 
                 OrderCode = "202300000001",
                 Total = 4872M,
@@ -130,7 +130,7 @@ namespace ShopNow.IntegrationTests.Specs.Controllers
             };
             _eventBus.Subscribe(consumer);
 
-            await _httpClient.PutAsync(URL_BASE, orderCode.ToJsonContent());
+            await _httpClient.PutAsync(URL_BASE, orderCode!.ToJsonContent());
 
             var stocks = _context.Stocks.ToList();
             var expectedStocks = new List<StockEntry>()
@@ -173,8 +173,8 @@ namespace ShopNow.IntegrationTests.Specs.Controllers
                 new OrderDTO
                 {
                     Id = orders.First().Id,
-                    Code = orders.First().Code,
-                    Cpf = orders.First().CpfNumber,
+                    Code = orders.First().Code!,
+                    Cpf = orders.First().CpfNumber!,
                     Freight = orders.First().Freight,
                     Status = orders.First().Status,
                     OrderItems = orders.First().OrderItems.Select(oi => new OrderItemDTO { Description = oi.Item.Description, Price = oi.Item.Price, Count = oi.Count }).ToList(),
@@ -183,8 +183,8 @@ namespace ShopNow.IntegrationTests.Specs.Controllers
                 new OrderDTO
                 {
                     Id = orders.Last().Id,
-                    Code = orders.Last().Code,
-                    Cpf = orders.Last().CpfNumber,
+                    Code = orders.Last().Code!,
+                    Cpf = orders.Last().CpfNumber!,
                     Freight = orders.Last().Freight,
                     Status = orders.Last().Status,
                     OrderItems = orders.Last().OrderItems.Select(oi => new OrderItemDTO{ Description = oi.Item.Description, Price= oi.Item.Price, Count = oi.Count}).ToList(),
@@ -225,8 +225,8 @@ namespace ShopNow.IntegrationTests.Specs.Controllers
             var expectedOrderAsJson = new OrderDTO
             {
                 Id = orders.First().Id,
-                Code = orders.First().Code,
-                Cpf = orders.First().CpfNumber,
+                Code = orders.First().Code!,
+                Cpf = orders.First().CpfNumber!,
                 Freight = orders.First().Freight,
                 OrderItems = orders.First().OrderItems.Select(oi => new OrderItemDTO { Description = oi.Item.Description, Price = oi.Item.Price, Count = oi.Count }).ToList(),
                 Total = orders.First().GetTotal()

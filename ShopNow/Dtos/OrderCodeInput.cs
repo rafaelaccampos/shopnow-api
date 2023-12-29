@@ -2,6 +2,6 @@
 {
     public class OrderCodeInput
     {
-        public string OrderCode { get; set; }
+        public string? OrderCode { get; set; }
     }
 }
