@@ -19,6 +19,7 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 - [NSubstitute](https://nsubstitute.github.io/)
 - [AutoBogus](https://github.com/nickdodd79/AutoBogus)
 - [Respawn](https://github.com/jbogard/Respawn)
+- [Docker](https://www.docker.com/)
 
 ## Como usar?
 
@@ -46,6 +47,8 @@ O app estará disponível no seu browser pelo endereço https://localhost:5001.
 
 Para iniciar o testes, siga os passos abaixo:
 ```bash
+# Rodar o container dos testes de integração
+$ docker compose up -d
 # Para rodar os testes
 $ dotnet test
 ```
