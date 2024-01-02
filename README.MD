@@ -16,6 +16,7 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 - [NUnit](https://nunit.org/)
 - [Fluent Migrator](https://fluentmigrator.github.io/)
 - [Fluent Assertions](https://fluentassertions.com/)
+- [Fluent Validation](https://docs.fluentvalidation.net/en/latest/)
 - [NSubstitute](https://nsubstitute.github.io/)
 - [AutoBogus](https://github.com/nickdodd79/AutoBogus)
 - [Respawn](https://github.com/jbogard/Respawn)
