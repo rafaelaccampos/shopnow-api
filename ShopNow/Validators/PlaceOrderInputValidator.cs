@@ -7,7 +7,11 @@ namespace ShopNow.Validators
     {
         public PlaceOrderInputValidator()
         {
-            
+            RuleFor(p => p.Cpf)
+                .NotEmpty()
+                .WithMessage("O cpf é obrigatório!")
+                .MinimumLength(11)
+                .WithMessage("O cpf deve ter no mínimo 11 dígitos!"));
         }
     }
 }
