@@ -8,6 +8,7 @@ using ShopNow.Dtos;
 using ShopNow.Infra.Checkout.Data.Queries;
 using ShopNow.Infra.Shared.Event;
 using ShopNow.Infra.Stock.Repositories;
+using ShopNow.IntegrationTests.Builders;
 using ShopNow.IntegrationTests.Setup;
 using ShopNow.Tests.Shared.Extensions;
 using System.Net;
@@ -63,7 +64,6 @@ namespace ShopNow.IntegrationTests.Specs.Controllers
                         Count = 3,
                     }
                 },
-                IssueDate = new DateTime(2023, 09, 28),
                 Coupon = coupon.Code
             };
 
@@ -148,9 +148,16 @@ namespace ShopNow.IntegrationTests.Specs.Controllers
         [Test]
         public async Task GetShouldBeAbleToGetOrders()
         {
-            var item = new Item(1, "Guitarra", "Eletrônicos", 1000, 100, 50, 15, 3);
-            _context.Add(item);
-            await _context.SaveChangesAsync();
+            var item = new ItemBuilderDatabase()
+                .WithId(1)
+                .WithDescription("Guitarra")
+                .WithCategory("Eletrônicos")
+                .WithPrice(1000)
+                .WithWidth(100)
+                .WithHeight(50)
+                .WithLength(15)
+                .WithWeight(3)
+                .Generate();
 
             var cpf = Faker.Person.Cpf(false);
             var issueDate = new DateTime(2023, 09, 28);

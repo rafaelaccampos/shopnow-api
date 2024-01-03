@@ -33,7 +33,7 @@ namespace ShopNow.IntegrationTests.Setup
             await respawner!.ResetAsync(connectionString);
         }
 
-        protected static T GetService<T>()
+        public static T GetService<T>()
         {
             return _scope.ServiceProvider.GetService<T>()!;
         }

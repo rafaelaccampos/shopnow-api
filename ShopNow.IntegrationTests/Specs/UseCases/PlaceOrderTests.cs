@@ -34,7 +34,6 @@ namespace ShopNow.IntegrationTests.Specs.Repositories
                         Count = 3,
                     }
                 },
-                IssueDate = new DateTime(2023, 07, 30)
             };
 
             var items = new List<Item>
@@ -81,7 +80,6 @@ namespace ShopNow.IntegrationTests.Specs.Repositories
                         Count = 3,
                     }
                 },
-                IssueDate = new DateTime(2023, 07, 30),
                 Coupon = "VALE20",
             };
 

@@ -49,7 +49,6 @@ namespace ShopNow.UnitTests.Specs.UseCases
                         Count = 1,
                     },
                 },
-                IssueDate = DateTime.Now,
                 Coupon = "VALE20"
             };
             var item = new ItemBuilder()
