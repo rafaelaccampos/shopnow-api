@@ -79,7 +79,7 @@ namespace ShopNow.IntegrationTests.Specs.Controllers
 
             var expectedResponseContent = new
             { 
-                OrderCode = "202300000001",
+                OrderCode = $"{DateTime.Now.Year}00000001",
                 Total = 4872M,
                 Freight = 280M,
             }.Serialize();
@@ -148,16 +148,9 @@ namespace ShopNow.IntegrationTests.Specs.Controllers
         [Test]
         public async Task GetShouldBeAbleToGetOrders()
         {
-            var item = new ItemBuilderDatabase()
-                .WithId(1)
-                .WithDescription("Guitarra")
-                .WithCategory("Eletrônicos")
-                .WithPrice(1000)
-                .WithWidth(100)
-                .WithHeight(50)
-                .WithLength(15)
-                .WithWeight(3)
-                .Generate();
+            var item = new Item(1, "Guitarra", "Eletrônicos", 1000, 100, 50, 15, 3);
+            _context.Add(item);
+            await _context.SaveChangesAsync();
 
             var cpf = Faker.Person.Cpf(false);
             var issueDate = new DateTime(2023, 09, 28);

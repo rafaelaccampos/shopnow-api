@@ -1,4 +1,5 @@
 using FluentMigrator.Runner;
+using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using ShopNow.Domain.Checkout.Factory;
 using ShopNow.Domain.Checkout.Repositories;
@@ -20,6 +21,10 @@ builder.Services.AddControllers()
         options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
         options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
     });
+builder.Services.AddFluentValidationAutoValidation(fv =>
+{
+    fv.DisableDataAnnotationsValidation = true;
+});
 builder.Services.AddDbContext<ShopContext>(
     options => options.UseSqlServer(builder.Configuration.GetConnectionString("Shops")));
 builder.Services.AddEndpointsApiExplorer();

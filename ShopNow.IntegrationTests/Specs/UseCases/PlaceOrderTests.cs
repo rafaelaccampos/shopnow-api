@@ -52,7 +52,7 @@ namespace ShopNow.IntegrationTests.Specs.Repositories
             using (new AssertionScope())
             {
                 output.Total.Should().Be(6090);
-                output.OrderCode.Should().Be("202300000001");
+                output.OrderCode.Should().Be($"{DateTime.Now.Year}00000001");
             }
         }
 
@@ -101,7 +101,7 @@ namespace ShopNow.IntegrationTests.Specs.Repositories
             using (new AssertionScope())
             {
                 output.Total.Should().Be(4872);
-                output.OrderCode.Should().Be("202300000001");
+                output.OrderCode.Should().Be($"{DateTime.Now.Year}00000001");
             }
         }
     }
