@@ -13,6 +13,7 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 
 - [.NET 6 WebApi](https://learn.microsoft.com/pt-br/dotnet/core/whats-new/dotnet-6)
 - [Entity Framework](https://learn.microsoft.com/pt-br/ef/)
+- [Microsoft Sql Server 2019](https://www.microsoft.com/pt-br/sql-server/sql-server-2019)
 - [NUnit](https://nunit.org/)
 - [Fluent Migrator](https://fluentmigrator.github.io/)
 - [Fluent Validation](https://docs.fluentvalidation.net/en/latest/)
