@@ -14,7 +14,7 @@ namespace ShopNow.Validators
                 .WithMessage("O cpf deve ter no mínimo 11 dígitos!");
             RuleFor(p => p.OrderItems)
                 .NotEmpty()
-                .WithMessage("A ordem precisa ter pelo menos um pedido!");
+                .WithMessage("O pedido precisa ter pelo menos um pedido!");
         }
     }
 }

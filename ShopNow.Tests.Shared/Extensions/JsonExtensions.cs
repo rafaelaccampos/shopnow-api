@@ -1,4 +1,5 @@
 ﻿using FluentAssertions;
+using FluentAssertions.Json;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
@@ -35,6 +36,14 @@ namespace ShopNow.Tests.Shared.Extensions
                 }
             };
             return JsonConvert.SerializeObject(obj, settings);
+        }
+
+        public static void ShouldContainJsonSubtree(this string actual, string expected)
+        {
+            var actualJToken = actual.ToJToken();
+            var expectedJToken = expected.ToJToken();
+
+            actualJToken.Should().ContainSubtree(expectedJToken, $"Json does not contain {expected}. Actual Json: {actual}");
         }
 
         private static JToken ToJToken(this string text)

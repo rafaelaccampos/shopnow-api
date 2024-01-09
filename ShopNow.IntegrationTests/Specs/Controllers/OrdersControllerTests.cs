@@ -8,7 +8,6 @@ using ShopNow.Dtos;
 using ShopNow.Infra.Checkout.Data.Queries;
 using ShopNow.Infra.Shared.Event;
 using ShopNow.Infra.Stock.Repositories;
-using ShopNow.IntegrationTests.Builders;
 using ShopNow.IntegrationTests.Setup;
 using ShopNow.Tests.Shared.Extensions;
 using System.Net;
@@ -260,10 +259,36 @@ namespace ShopNow.IntegrationTests.Specs.Controllers
             var response = await _httpClient.GetAsync($"{URL_BASE}/{CODE}");
             var responseOrderAsJson = await response.Content.ReadAsStringAsync();
             
-            using(new AssertionScope())
+            using (new AssertionScope())
             {
                 response.Should().HaveStatusCode(HttpStatusCode.NotFound);
                 responseOrderAsJson.Should().BeNullOrEmpty();
+            }
+        }
+
+        [Test]
+        public async Task CreateShouldBeAbleToReturn400WhenPlaceOrderIsInvalid()
+        {
+            //Arrange
+            var placeOrderInput = new PlaceOrderInput { };
+
+            //Act
+            var response = await _httpClient.PostAsync(URL_BASE, placeOrderInput.ToJsonContent());
+            var responseOrderAsJson = await response.Content.ReadAsStringAsync();
+
+            var expectedMessage = $@"{{
+                ""errors"": {{
+                    ""Cpf"": [""O cpf é obrigatório!""],
+                    ""Cpf"": [""O pedido precisa ter pelo menos um pedido!""],
+                    ""OrderItems"": [""O pedido precisa ter pelo menos um pedido!""],
+                }}
+            }}";
+
+            //Assert
+            using (new AssertionScope())
+            {
+                response.Should().HaveStatusCode(HttpStatusCode.BadRequest);
+                responseOrderAsJson.ShouldContainJsonSubtree(expectedMessage);
             }
         }
     }
