@@ -269,22 +269,16 @@ namespace ShopNow.IntegrationTests.Specs.Controllers
         [Test]
         public async Task CreateShouldBeAbleToReturn400WhenPlaceOrderIsInvalid()
         {
-            //Arrange
             var placeOrderInput = new PlaceOrderInput { };
-
-            //Act
             var response = await _httpClient.PostAsync(URL_BASE, placeOrderInput.ToJsonContent());
             var responseOrderAsJson = await response.Content.ReadAsStringAsync();
 
             var expectedMessage = $@"{{
                 ""errors"": {{
                     ""Cpf"": [""O cpf é obrigatório!""],
-                    ""Cpf"": [""O pedido precisa ter pelo menos um pedido!""],
                     ""OrderItems"": [""O pedido precisa ter pelo menos um pedido!""],
                 }}
             }}";
-
-            //Assert
             using (new AssertionScope())
             {
                 response.Should().HaveStatusCode(HttpStatusCode.BadRequest);

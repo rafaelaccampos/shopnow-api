@@ -2,6 +2,7 @@ using FluentMigrator.Runner;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
+using ShopNow;
 using ShopNow.Domain.Checkout.Factory;
 using ShopNow.Domain.Checkout.Repositories;
 using ShopNow.Infra;
@@ -26,7 +27,7 @@ builder.Services.AddFluentValidationAutoValidation(fv =>
 {
     fv.DisableDataAnnotationsValidation = true;
 });
-builder.Services.AddValidatorsFromAssemblyContaining<ShopContext>();
+builder.Services.AddValidatorsFromAssemblyContaining<EntryPoint>();
 builder.Services.AddDbContext<ShopContext>(
     options => options.UseSqlServer(builder.Configuration.GetConnectionString("Shops")));
 builder.Services.AddEndpointsApiExplorer();
