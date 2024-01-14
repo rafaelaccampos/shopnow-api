@@ -3,11 +3,9 @@ using FluentAssertions;
 using FluentAssertions.Execution;
 using ShopNow.Domain.Checkout.Entities;
 using ShopNow.Domain.Stock.Entities;
-using ShopNow.Domain.Stock.Handlers;
 using ShopNow.Dtos;
 using ShopNow.Infra.Checkout.Data.Queries;
 using ShopNow.Infra.Shared.Event;
-using ShopNow.Infra.Stock.Repositories;
 using ShopNow.IntegrationTests.Setup;
 using ShopNow.Tests.Shared.Extensions;
 using System.Net;
@@ -17,13 +15,6 @@ namespace ShopNow.IntegrationTests.Specs.Controllers
     public class OrdersControllerTests : ApiBase
     {
         private const string URL_BASE = "/orders";
-        private EventBus _eventBus;
-
-        [SetUp]
-        public void SetUp()
-        {
-            _eventBus = GetService<EventBus>();
-        }
 
         [Test]
         public async Task CreateShouldBeAbleToPlaceOrderWithCoupon()
@@ -65,13 +56,6 @@ namespace ShopNow.IntegrationTests.Specs.Controllers
                 },
                 Coupon = coupon.Code
             };
-
-            var consumer = new Consumer
-            {
-                EventName = "OrderPlaced",
-                Handler = new OrderPlacedStockHandler(new StockRepository(_context))
-            };
-            _eventBus.Subscribe(consumer);
 
             var response = await _httpClient.PostAsync(URL_BASE, placeOrderInput.ToJsonContent());
             var responseContent = await response.Content.ReadAsStringAsync();
@@ -121,13 +105,6 @@ namespace ShopNow.IntegrationTests.Specs.Controllers
             order.AddItem(items.Last(), 2);
             _context.Add(order);
             await _context.SaveChangesAsync();
-
-            var consumer = new Consumer
-            {
-                EventName = "OrderCancelled",
-                Handler = new OrderCancelledStockHandler(new StockRepository(_context))
-            };
-            _eventBus.Subscribe(consumer);
 
             await _httpClient.PutAsync(URL_BASE, orderCode!.ToJsonContent());
 

@@ -17,7 +17,8 @@ namespace ShopNow.Infra.Shared.Event
             {
                 if(consumer.EventName == domainEvent.Name) 
                 {
-                    await consumer.Handler.Notify(domainEvent);
+                    var handler = consumer.HandlerFactory();
+                    await handler.Notify(domainEvent);
                 }
             }
         }
