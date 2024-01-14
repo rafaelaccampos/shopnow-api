@@ -67,13 +67,13 @@ var scope = app.Services.CreateScope();
     var consumerPlaceOrder = new Consumer
     {
         EventName = "OrderPlaced",
-        HandlerFactory = () => scope.ServiceProvider.GetRequiredService<OrderPlacedStockHandler>() 
+        Handler = scope.ServiceProvider.GetRequiredService<OrderPlacedStockHandler>() 
     };
     eventBus.Subscribe(consumerPlaceOrder);
     var consumerCancelledOrder = new Consumer
     {
         EventName = "OrderCancelled",
-        HandlerFactory = () => scope.ServiceProvider.GetRequiredService<OrderCancelledStockHandler>()
+        Handler = scope.ServiceProvider.GetRequiredService<OrderCancelledStockHandler>()
     };
     eventBus.Subscribe(consumerCancelledOrder);
 }

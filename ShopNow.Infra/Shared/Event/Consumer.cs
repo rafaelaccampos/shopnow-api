@@ -6,6 +6,6 @@ namespace ShopNow.Infra.Shared.Event
     {
         public string EventName { get; set; }
 
-        public Func<IHandler> HandlerFactory { get; set; }
+        public IHandler Handler { get; set; }
     }
 }
