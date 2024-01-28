@@ -5,7 +5,6 @@ using ShopNow.Domain.Checkout.Entities;
 using ShopNow.Domain.Stock.Entities;
 using ShopNow.Dtos;
 using ShopNow.Infra.Checkout.Data.Queries;
-using ShopNow.Infra.Shared.Event;
 using ShopNow.IntegrationTests.Setup;
 using ShopNow.Tests.Shared.Extensions;
 using System.Net;

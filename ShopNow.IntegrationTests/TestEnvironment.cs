@@ -16,7 +16,7 @@ namespace ShopNow.IntegrationTests
             Factory = new WebApplicationFactory<Program>().WithWebHostBuilder(builder =>
             {
                 var configuration = new ConfigurationBuilder()
-                .AddJsonFile("appsettings.json")
+                .AddJsonFile("appsettings.Test.json")
                 .Build();
 
                 DatabaseCreator.CreateDatabase(configuration.GetConnectionString("Shops"));
